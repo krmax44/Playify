@@ -6,7 +6,7 @@ Playify opens all Spotify links in Google Play Music.
 
 It's simple. Install it and never worry about it again.
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/q5jWN5l-HHo" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="720" src="https://www.youtube.com/embed/q5jWN5l-HHo" frameborder="0" allowfullscreen></iframe>
 
 ### Download
 
