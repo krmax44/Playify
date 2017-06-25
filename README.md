@@ -1,37 +1,11 @@
-## Welcome to GitHub Pages
+## Playify
 
-You can use the [editor on GitHub](https://github.com/krmax44/Playify/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Playify opens all Spotify links in Google Play Music.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### How it works
 
-### Markdown
+It's simple. Install it and never worry about it again.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Download
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/krmax44/Playify/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Unfortunately, this extension is not available in the Chrome Web Store (yet). However, it is still easy to get. Download the latest `.crx` from [here](https://github.com/krmax44/Playify/releases/latest), go to `chrome://extensions` (or click <a href="chrome://extensions">here</a> if you're lazy) and drag & drop the file in it. Confirm the installation and you're done!
