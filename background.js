@@ -1,25 +1,18 @@
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
         if (details.url.startsWith("https://open.spotify.com/")) {
-            var parser = document.createElement("a");
+            const parser = document.createElement("a");
             parser.href = details.url;
 
-            var requestBase = 'https://krmax44.de/playify/?type=';
-            var requestId = parser.pathname.split("/")[2];
-            var requestType = '';
+            const redirectBase = 'https://krmax44.de/playify/';
 
-            if (parser.pathname.startsWith("/album/")) {
-                requestType = "album";
-            } else if (parser.pathname.startsWith("/artist/")) {
-                requestType = "artist";
-            } else if (parser.pathname.startsWith("/track/")) {
-                requestType = "track";
-            }
+            const requestExplode = parser.pathname.split("/");
+            const requestType = requestExplode[1];
+            const requestId = requestExplode[2];
 
             if (!!requestType) {
-              return { redirectUrl: requestBase + requestType + "&q=" + requestId };
+              return { redirectUrl: `${redirectBase}?type=${requestType}&q=${requestId}` };
             }
-
         }
     }, {
         urls: ["*://*.spotify.com/*"],
