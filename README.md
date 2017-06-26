@@ -8,8 +8,9 @@ It's simple. Install it and never worry about it again.
 
 ### Download
 
-Unfortunately, this extension is not available in the Chrome Web Store (yet). However, it is still easy to get. Download the latest `.crx` from [here](https://github.com/krmax44/Playify/releases/latest), go to `chrome://extensions` and drag & drop the file in it. Confirm the installation and you're done!
+You can download Playify from the [Chrome Web Store](https://chrome.google.com/webstore/detail/playify/cniimiiflgmmjmcohcgnofcdiifdifef).
 
 ### Future features
 
  - playlists (auto-converted to GPM)
+ - open in [GPMDP](https://googleplaymusicdesktopplayer.com)
