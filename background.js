@@ -4,16 +4,22 @@ chrome.webRequest.onBeforeRequest.addListener(
             var parser = document.createElement("a");
             parser.href = details.url;
 
+            var requestBase = 'https://krmax44.de/playify/?type=';
+            var requestId = parser.pathname.split("/")[2];
+            var requestType = '';
+
             if (parser.pathname.startsWith("/album/")) {
-                var redirect = "https://krmax44.de/playify/?type=album&q=" + parser.pathname.split("/")[2];
-                return { redirectUrl: redirect };
+                requestType = "album";
             } else if (parser.pathname.startsWith("/artist/")) {
-                var redirect = "https://krmax44.de/playify/?type=artist&q=" + parser.pathname.split("/")[2];
-                return { redirectUrl: redirect };
+                requestType = "artist";
             } else if (parser.pathname.startsWith("/track/")) {
-                var redirect = "https://krmax44.de/playify/?type=track&q=" + parser.pathname.split("/")[2];
-                return { redirectUrl: redirect };
+                requestType = "track";
             }
+
+            if (!!requestType) {
+              return { redirectUrl: requestBase + requestType + "&q=" + requestId };
+            }
+
         }
     }, {
         urls: ["*://*.spotify.com/*"],
