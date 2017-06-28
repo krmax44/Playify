@@ -2,15 +2,11 @@
 	"manifest_version": 2,
 	"name": "Playify",
 	"description": "Play Spotify tracks in Google Play Music",
-	"version": "0.2",
+	"version": "0.3",
 	"browser_action": {
 	    "default_icon": "icon.png",
 	    "default_popup": "popup.html"
 	},
 	"background": {"scripts":["background.js"]},
-	"permissions": [
-    "webRequest", "webRequestBlocking",
-    "*://*.spotify.com/*",
-    "https://krmax44.de/playify/*"
-  ]
+	"permissions": ["webRequest", "webRequestBlocking", "*://*.spotify.com/*", "https://krmax44.de/playify/*", "storage"]
 }

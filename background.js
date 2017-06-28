@@ -1,5 +1,21 @@
-chrome.webRequest.onBeforeRequest.addListener(
-  function(details) {
+var settings;
+
+function retrieveSettings (){
+  chrome.storage.sync.get({
+    service: {
+      name: "gpm",
+      extra: ".com"
+    }
+  }, function (items){
+    settings = items;
+  });
+}
+
+retrieveSettings();
+
+chrome.storage.onChanged.addListener(retrieveSettings);
+
+var listener = chrome.webRequest.onBeforeRequest.addListener(function(details) {
     if (details.url.startsWith("https://open.spotify.com/")) {
       var parser = document.createElement("a");
       parser.href = details.url;
@@ -8,7 +24,7 @@ chrome.webRequest.onBeforeRequest.addListener(
         return;
       }
 
-      var requestBase = "https://krmax44.de/playify/?type=";
+      var requestBase = "https://krmax44.de/playify/?d="+settings.service.name+"&e="+settings.service.extra+"&type=";
       var requestId = parser.pathname.split("/")[2];
       var requestType = "";
       var requestExtra = "";
