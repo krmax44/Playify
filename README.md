@@ -17,5 +17,5 @@ You can download Playify from the [Chrome Web Store](https://chrome.google.com/w
 
 ### Donate
 
-<img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" align="right">
-If you're feeling generous, I would really appreciate a small donation to keep the extension in development! Thank you! [Donate with PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VRGZY3DW4UALC)
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VRGZY3DW4UALC"><img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" align="right"></a>
+If you're feeling generous, I would really appreciate a small donation to keep the extension in development! Thank you! <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VRGZY3DW4UALC">Donate with PayPal</a>
