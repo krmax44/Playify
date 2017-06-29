@@ -5,6 +5,9 @@ function retrieveSettings (){
     service: {
       name: "gpm",
       extra: ".com"
+    },
+    gpmdp: {
+      key: "empty"
     }
   }, function (items){
     settings = items;
@@ -42,7 +45,7 @@ var listener = chrome.webRequest.onBeforeRequest.addListener(function(details) {
       }
 
       if (!!requestType) {
-        return { redirectUrl: requestBase + requestType + "&q=" + requestId + "&r=" + requestExtra };
+        return { redirectUrl: requestBase + requestType + "&q=" + requestId + "&r=" + requestExtra + "#" + settings.gpmdp.key };
       }
 
     }

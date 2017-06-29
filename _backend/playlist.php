@@ -58,7 +58,13 @@
 						echo "<br>";
 						echo $res["items"][$i]["track"]["album"]["name"];
 						  ?></p>
-					  <a href="<?php echo getLink($res["items"][$i]["track"]["name"]." - ".$res["items"][$i]["track"]["artists"][0]["name"]); ?>" class="secondary-content" target="_blank">
+						
+							<?php if ($_GET["d"] == "gpmdp") { ?>
+								<a data-search="<?php echo $res["items"][$i]["track"]["id"]; ?>" class="secondary-content gpmdp" style="cursor:pointer;" target="_blank">
+							<?php } else { ?>
+								<a href="<?php echo getLink($res["items"][$i]["track"]["name"]." - ".$res["items"][$i]["track"]["artists"][0]["name"]); ?>" class="secondary-content" target="_blank">
+							<?php } ?>
+									
 						<svg fill="#000000" height="32" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8 5v14l11-7z"/>
 							<path d="M0 0h24v24H0z" fill="none"/>
@@ -73,6 +79,15 @@
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+		<script type="text/javascript">
+			var parser = document.createElement("a");
+			parser.href = window.location.href;
+
+			$("a.gpmdp").on("click", function(){
+				var win = window.open("/playify/?d=gpmdp&type=track&q="+$(this).attr("data-search")+parser.hash, "_blank");
+  			win.focus();
+			});
+		</script>
 </body>
 
 </html>
