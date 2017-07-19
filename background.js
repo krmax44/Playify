@@ -31,7 +31,7 @@ var listener = chrome.webRequest.onBeforeRequest.addListener(function(details) {
       var requestId = parser.pathname.split("/")[2];
       var requestType = "";
       var requestExtra = "";
-      var playlistRegex = /\/[a-zA-Z0-9.]+\/playlist\/[a-zA-Z0-9]+/ig;
+      var playlistRegex = /\/[a-zA-Z0-9_\-]+\/playlist\/[a-zA-Z0-9]+/ig; // usernames may contain a-z, A-Z, 0-9, "-" and "_"; playlists may contain a-z, A-Z, 0-9
 
       if (parser.pathname.startsWith("/album/")) {
         requestType = "album";
