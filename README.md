@@ -12,7 +12,7 @@ You can download Playify from the [Chrome Web Store](https://chrome.google.com/w
 
 ### Future features
 
- - :ballot_box_with_check: playlists (auto-converted to GPM) (half done, playlists are not getting converted yet, but you will see a list and can play the songs)
+ - :ballot_box_with_check: playlists (auto-converted to GPM)
  - :ballot_box_with_check: open in [GPMDP](https://googleplaymusicdesktopplayer.com)
 
 ### Donate
