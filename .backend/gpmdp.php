@@ -151,6 +151,25 @@
                 $(".error").show();
             }
         }
+      
+        if (data.channel == "search-results" && data.payload.searchText == "<?php echo $search; ?>") {
+          console.log(data.payload.<?php echo $category; ?>[0]);
+            console.log("sending");
+            socket.send(JSON.stringify({
+                namespace: "search",
+                method: "playResult",
+                arguments: [data.payload.<?php echo $category; ?>[0]]
+            }));
+            <?php
+              if (intval($_GET["v"]) >= 2) {
+                ?>
+                setTimeout(function(){
+                  window.location.href = "https://krmax44.de/playify/close";
+                }, 2000);
+                <?php
+              }
+            ?>
+        }
     };
 
     socket.onopen = function() {

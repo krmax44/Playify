@@ -1,19 +1,17 @@
 <?php
 
-if (!isset($_GET["q"]) || !isset($_GET["type"])) {
+if (!$_GET["q"] || !$_GET["type"]) {
 	include("website.html");
-	exit;
 }
 
 $token = json_decode(file_get_contents("token.json"), true);
 $ftoken = "";
 
 if(time() - $token["date"] > 3599) {
-	$url = "https://accounts.spotify.com/api/token";
-	$method = "POST";
-	
-	// fill this with your API data from Spotify.
-	$credentials = "clientid:clientsecret";
+	$url = 'https://accounts.spotify.com/api/token';
+	$method = 'POST';
+
+	$credentials = "your:credentials";
 
 	$headers = array(
 			"Accept: */*",
@@ -45,14 +43,20 @@ else {
 	$ftoken = $token["token"];
 }
 
-include("domains.php");
+include "utils.php";
 
-function answerResponse ($response) {
+function validateResponse ($response) {
 	if ($response == "" || !isset($response)) {
 		include("404.html");
 		exit;
 	}
-	$res = json_decode($response, true);
+	else {
+		return json_decode($response, true);
+	}
+}
+
+function answerResponse ($response) {
+	$res = validateResponse($response);
 	header("Location: ".getLink($res["name"]." - ".$res["artists"][0]["name"]));
 }
 
@@ -63,11 +67,7 @@ switch ($_GET["type"]) {
 		break;
 	case "artist":
 		$response = file_get_contents("https://api.spotify.com/v1/artists/".$_GET["q"]."?access_token=".$ftoken);
-		if ($response == "" || !isset($response)) {
-			include("404.html");
-			exit;
-		}
-		$res = json_decode($response, true);
+		$res = validateResponse($response);
 		header("Location: ".getLink($res["name"]));
 		break;
 	case "track":
@@ -76,11 +76,7 @@ switch ($_GET["type"]) {
 		break;
 	case "playlist":
 		$response = file_get_contents("https://api.spotify.com/v1/users/".urlencode($_GET["q"])."/playlists/".urlencode($_GET["r"])."/tracks?access_token=".$ftoken);		
-		if ($response == "" || !isset($response)) {
-			include("404.html");
-			exit;
-		}
-		$res = json_decode($response, true);
+		$res = validateResponse($response);
 		include("playlist.php");
 		break;
 }

@@ -27,11 +27,11 @@ var listener = chrome.webRequest.onBeforeRequest.addListener(function(details) {
         return;
       }
 
-      var requestBase = "https://krmax44.de/playify/?d="+settings.service.name+"&e="+settings.service.extra+"&type=";
+      var requestBase = "https://krmax44.de/playify/?v=2&d="+settings.service.name+"&e="+settings.service.extra+"&type=";
       var requestId = parser.pathname.split("/")[2];
       var requestType = "";
       var requestExtra = "";
-      var playlistRegex = /\/[a-zA-Z0-9_\-]+\/playlist\/[a-zA-Z0-9]+/ig; // usernames may contain a-z, A-Z, 0-9, "-" and "_"; playlists may contain a-z, A-Z, 0-9
+      var playlistRegex = /\/[a-zA-Z0-9ÄäÖöÜü_\-\.]+\/playlist\/[a-zA-Z0-9]+/ig; // usernames may contain a-z, A-Z, 0-9, "-" and "_"; playlists may contain a-z, A-Z, 0-9
 
       if (parser.pathname.startsWith("/album/")) {
         requestType = "album";
@@ -49,8 +49,11 @@ var listener = chrome.webRequest.onBeforeRequest.addListener(function(details) {
       }
 
     }
+    else if (details.url.startsWith("https://krmax44.de/playify/close")) {
+      chrome.tabs.remove(details.tabId);
+    }
   }, {
-    urls: ["*://*.spotify.com/*"],
+    urls: ["*://*.spotify.com/*", "*://krmax44.de/playify/*"],
     types: ["main_frame"]
 
   }, ["blocking"]

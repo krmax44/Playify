@@ -1,0 +1,8 @@
+<Files "token.json,website.html,playlist.php,domains.php,gpmdp.php">
+Order Allow,Deny
+Deny from all
+</Files>
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>

@@ -22,6 +22,7 @@ function getLink ($search) {
   }
   
   if ($domain == "gpmdp") {
+    $category = $_GET["type"]."s";
     include("gpmdp.php");
     exit;
   }
