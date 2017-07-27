@@ -1,6 +1,6 @@
 ## Playify
 
-Playify opens all Spotify links in Google Play Music, Amazon Music, YouTube or the GPMDP.
+Playify opens all Spotify links in Google Play Music, Amazon Music, YouTube or the GPMDP. [Watch the video](https://youtu.be/NNu1ZseYMt8)
 
 ### How it works
 
