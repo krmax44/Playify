@@ -12,7 +12,6 @@ You can download Playify from the [Chrome Web Store](https://chrome.google.com/w
 
 ### Future features
 
-<<<<<<< HEAD
  - [x] playlists (auto-converted to GPM) (half done, playlists are not getting converted yet, but you will see a list and can play the songs)
  - [x] open in [GPMDP](https://googleplaymusicdesktopplayer.com)
  - [ ] Android app
@@ -23,11 +22,6 @@ Parts of Playify have been split up into multiple repos:
 
  - [Playify Transfer](https://github.com/krmax44/Playify-Transfer) (transfer Spotify playlists to GPM)
  - [Playify Backend](https://github.com/krmax44/Playify-Backend) (the Playify)
-=======
- - [x] playlists (auto-converted to GPM)
- - [x] open in [GPMDP](https://googleplaymusicdesktopplayer.com)
- - [ ] Android app
->>>>>>> 3e43d998cda75dba4260b0131315d422b767e285
 
 ### Donate
 
