@@ -21,7 +21,7 @@ You can download Playify from the [Chrome Web Store](https://chrome.google.com/w
 Parts of Playify have been split up into multiple repos:
 
  - [Playify Transfer](https://github.com/krmax44/Playify-Transfer) (transfer Spotify playlists to GPM)
- - [Playify Backend](https://github.com/krmax44/Playify-Backend) (the Playify)
+ - [Playify Backend](https://github.com/krmax44/Playify-Backend) (the Playify backend in PHP)
 
 ### Donate
 
