@@ -1,93 +1,129 @@
-<!DOCTYPE html>
 <html>
 	<head>
 		<title></title>
+		<link rel="stylesheet" href="css/materialize.min.css">
+		<link rel="stylesheet" href="css/style.css">
 		<style type="text/css">
-			@font-face {
-				font-family: "Roboto";
-				font-style: normal;
-				font-weight: 400;
-				src: url("fonts/roboto.woff2") format("woff2");
-			}
-
-			@font-face {
-				font-family: "Roboto";
-				font-style: normal;
-				font-weight: 700;
-				src: url("fonts/roboto_bold.woff2") format("woff2");
-			}
-
 			body {
-				min-width: 300px;
-				padding: 0;
-				margin: 0;
-				font-family: "Roboto", sans-serif;
+				min-width: 360px;
 				user-select: none;
 				cursor: default;
+				background-image: url("img/concert-3.jpg");
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: top;
+				background-color: #000;
 			}
-
-			.header {
+			
+			.step {
 				width: 100%;
-				background-color: #10BC4C;
-				color: white;
-				height: 50px;
-				line-height: 50px;
-				text-align: center;
-				font-size: 2em;
+				padding: 7px;
 			}
-
-			.header img {
-				width: 20%;
+			
+			.step.enter-code .input-field input {
+				letter-spacing: 2.5em;
 			}
-
-			.text {
-				padding: 5px;
+			
+			.eq-overlay {
+				background-color: rgba(0, 0, 0, 0.5);
 			}
-
-			.center {
-				text-align: center;
-			}
-
-			a {
-				color: blue;
+			
+			body {
+				font-size: 100% !important;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="header">
-			<img src="icon-white.png">
-		</div>
-		<div class="text">
-			<h2 class="center"><strong>Settings</strong></h2>
-
+		<nav class="black" role="navigation">
+			<div class="nav-wrapper container">
+				<a href="#!" class="brand-logo center">Settings</a>
+			</div>
+		</nav>
+		<div class="container">
 			<div class="settings-item service">
-				<h3 class="center"><strong>Service</strong></h3>
+				<h5 class="center">Service</h5>
 				<input type="radio" name="service" id="gpm" value="gpm"> <label for="gpm">Google Play Music</label>
 				<br>
-				<input type="radio" name="service" id="amazon" value="amazon"> <label for="amazon">Amazon Music</label>
-				<select>
+				<input type="radio" name="service" id="amazon" value="amazon"> <label for="amazon">Amazon Music</label> <a href="#!" id="region-select" class="link">Select region</a>
+				<br>
+				<input type="radio" name="service" id="youtube" value="youtube"> <label for="youtube">YouTube</label>
+				<br>
+				<input type="radio" name="service" id="gpmdp" value="gpmdp"> <label for="gpmdp">Google Play Music Desktop Player</label> <a href="#!" id="setup-gpmdp" class="link">Setup</a>
+			</div>
+
+			<h5 class="center">Support</h5>
+			<p>Thanks for using Playify. Want to support me?</p>
+			<div class="center">
+				<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=VRGZY3DW4UALC" target="_blank" class="btn green accent-4 waves-effect waves-dark hoverable"><i class="icon-paypal"></i> Buy me a coffee</a>
+				<br>
+				<a href="https://github.com/krmax44/Playify" target="_blank" class="btn green accent-4 waves-effect waves-dark hoverable"><i class="icon-github"></i> Contribute to the project</a>
+			</div>
+		</div>
+		
+		<footer class="page-footer black" style="padding-top: 0;">
+			<div class="footer-copyright">
+				<div class="container">
+					<a href="https://krmax44.de" target="_blank" class="link">&copy; krmax44</a>
+					<br>
+					Spotify, Google, YouTube and/or Amazon are not affiliated with this project.
+					<br>
+					<i class="icon-picture"></i> from <a href="https://unsplash.com" target="_blank" class="link">Unsplash</a>.
+				</div>
+			</div>
+		</footer>
+		
+		<div class="eq-overlay hidden" id="amazon-region">
+			<div class="valign-wrapper select-field settings-item service" style="height: 100%;">
+				<select class="browser-default">
 					<option value=".com">.com</option>
 					<option value=".de">.de</option>
 					<option value=".co.uk">.co.uk</option>
 					<option value=".at">.at</option>
 				</select>
 				<br>
-				<input type="radio" name="service" id="youtube" value="youtube"> <label for="youtube">YouTube</label>
-				<br>
-				<input type="radio" name="service" id="gpmdp" value="gpmdp"> <label for="gpmdp">Google Play Music Desktop Player</label> <a href="gpmdp.html" target="_blank">Setup</a>
+				<a href="#!" id="region-back" class="btn waves-effect waves-light black white-text no-margin">Back</a>
 			</div>
-
-			<h3 class="center"><strong>Support</strong></h3>
-			<p>Thanks for using Playify. Want to support me?</p>
-			<div class="center">
-				<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VRGZY3DW4UALC" target="_blank">Buy me a coffee</a>
-				<br>
-				<a href="https://github.com/krmax44/Playify" target="_blank">Contribute to the project</a>
+		</div>
+		
+		<div class="eq-overlay hidden" id="gpmdp-setup">
+			<div class="valign-wrapper" style="height: 100%;">
+				<div class="step enter-code center">
+					<p>Please enter the code you see in the GPMDP.</p>
+					<div class="input-field inline">
+						<input id="code" type="text" maxlength="4" minlength="4" class="validate white-text" pattern="[0-9]{4}">
+						<label for="code" data-error="Invalid code. Check again." data-success="Let's go!">Code</label>
+					</div>
+					<a href="#!" class="btn waves-effect waves-light green accent-4 white-text gpmdp-back">Back</a>
+				</div>
+				
+				<div class="step finished hidden center">
+					<h2 class="white-text">That's it!</h2>
+					<p>You should now be able to enjoy your music with the GPMDP.</p>
+					<a href="#!" class="btn waves-effect waves-light green accent-4 white-text gpmdp-back">Back</a>
+				</div>
+		
+				<div class="step error hidden">
+					<h4 class="white-text center">Can't connect to GPMDP</h4>
+					<p>Is GPMDP opened?</p>
+					<p>Have you activated the Playback API?</p>
+					<p>
+					If not, here's how to do it:
+					<ol>
+						<li>Open the side menu and click on "Desktop Settings".</li>
+						<li>Check "Enable Playback API"</li>
+						<li>Kill the player by selecting "Quit" from the side menu</li>
+						<li>Re-open the player. Windows Firewall will probably ask if you want to enable the Playback API.</li>
+					</ol>
+					</p>
+					<a href="#!" class="btn waves-effect waves-light green accent-4 white-text gpmdp-back">Back</a>
+				</div>
 			</div>
-			<span>&copy; krmax44</span>
 		</div>
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
 		<script type="text/javascript" src="js/popup.js"></script>
+		<script type="text/javascript" src="js/gpmdp.js"></script>
+	
 	</body>
 </html>

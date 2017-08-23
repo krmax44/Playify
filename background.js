@@ -1,7 +1,7 @@
 var settings;
 
 function retrieveSettings (){
-  chrome.storage.sync.get({
+  chrome.storage.local.get({
     service: {
       name: "gpm",
       extra: ".com"

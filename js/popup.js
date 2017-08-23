@@ -1,5 +1,5 @@
 function getSettings () {
-	chrome.storage.sync.get({
+	chrome.storage.local.get({
 		service: {
 			name: "gpm",
 			extra: ".com"
@@ -17,7 +17,7 @@ function getSettings () {
 }
 
 function setSettings () {
-	chrome.storage.sync.set({
+	chrome.storage.local.set({
 		service: {
 			name: $(".settings-item.service input[type=radio]:checked").val(),
 			extra: $(".settings-item.service select").val()
@@ -27,5 +27,25 @@ function setSettings () {
 
 $("input").on("change", setSettings);
 $("select").on("change", setSettings);
+
+$("#region-select").on("click", function(){
+	$("#amazon-region").slideDown();
+});
+
+$("#region-back").on("click", function(){
+	$("#amazon-region").slideUp();
+});
+
+$("#setup-gpmdp").on("click", function(){
+	$("#gpmdp-setup").slideDown();
+	$(".step.error").hide();
+	$(".step.finished").hide();
+	$(".step.enter-code").show();
+	setupgpmdp();
+});
+
+$(".gpmdp-back").on("click", function(){
+	$("#gpmdp-setup").slideUp();
+});
 
 document.addEventListener("DOMContentLoaded", getSettings);
