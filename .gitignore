@@ -1,3 +1,11 @@
 Thumbs.db
-ftpsync.settings
 key.pem
+.cache/
+node_modules/
+dist/
+
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
