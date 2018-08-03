@@ -50,6 +50,10 @@ export default {
 		z-index: 1;
 	}
 
+	img.icon {
+		margin-left: 0;
+	}
+
 	&::before, &::after {
 		position: absolute;
 		left: 0;

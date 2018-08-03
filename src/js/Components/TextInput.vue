@@ -1,9 +1,10 @@
 <template>
-	<div class="input-field" :class="{ focus, dark }">
+	<div class="input-field" :class="{ focus, dark, error }">
 		<input
 			type="text"
 			:value="value"
 			:placeholder="placeholder"
+			autocomplete="off"
 			@focus="inputEvent"
 			@focusout="inputEvent"
 			@keyup="inputEvent"
@@ -13,7 +14,7 @@
 
 <script>
 export default {
-	props: ['value', 'placeholder', 'dark'],
+	props: ['value', 'placeholder', 'dark', 'error'],
 	data() {
 		return {
 			focus: false,
@@ -93,6 +94,12 @@ export default {
 			::placeholder {
 				color: rgba(0,0,0,.5);
 			}
+		}
+	}
+
+	&.error {
+		&::before, &::after {
+			border-bottom-color: $red;
 		}
 	}
 }

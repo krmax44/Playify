@@ -4,16 +4,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   entry: {
-    popup: path.join(__dirname, 'src/js/Popup.js'),
-    custom: path.join(__dirname, 'src/js/SetupCustom.js'),
-    background: path.join(__dirname, 'src/js/Background.js'),
-    director: path.join(__dirname, 'src/js/Director.js')
+    popup: './src/js/Popup.js',
+    custom: './src/js/SetupCustom.js',
+    background: './src/js/Background.js',
+    director: './src/js/Director.js'
     //options: path.join(__dirname, 'src', 'js', 'options.js'),
     //background: path.join(__dirname, 'src', 'js', 'background.js')
+  },
+  output: {
+    filename: '[name].js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -23,8 +28,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        loader: 'babel-loader'
       },
       {
         test: /\.(png|jpg|gif|svg|woff2)$/,
@@ -55,17 +59,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'popup.html',
       template: 'src/template.html',
-      chunks: ['popup']
+      chunks: ['popup', 'commons']
     }),
     new HtmlWebpackPlugin({
       filename: 'custom.html',
       template: 'src/template.html',
-      chunks: ['custom']
+      chunks: ['custom', 'commons']
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/template.html',
-      chunks: ['director']
+      chunks: ['director', 'commons']
     }),
     new CopyWebpackPlugin([{
       from: 'src/manifest.json',
@@ -74,6 +78,27 @@ module.exports = {
         version: process.env.npm_package_version,
         ...JSON.parse(content.toString())
       }))
-    }, { from: 'src/static/', to: 'static/' }, 'key.pem'])
-  ]
+    }, { from: 'src/static/', to: 'static/' }, 'src/key.pem'])
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          chunks(chunk) {
+            return chunk.name !== 'background';
+          },
+          minChunks: 1
+        }
+      }
+    },
+    minimize: true,
+    minimizer: [new UglifyJsPlugin({
+      uglifyOptions: {
+        output: {
+          comments: false
+        }
+      }
+    })]
+  }
 };

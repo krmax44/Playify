@@ -1,8 +1,8 @@
 <template>
 	<div
-		:style="{ flex: flex || (width !== '*' ? '0 1 0' : '1 1 0'), width: width !== '*' ? width : 'auto' }"
+		:style="{ flex: f, width: w }"
 		class="column">
-		<slot></slot>
+		<slot />
 	</div>
 </template>
 
@@ -18,6 +18,14 @@ export default {
 			type: String
 		}
 	},
+	computed: {
+		w() {
+			return this.width !== '*' ? this.width : 'auto';
+		},
+		f() {
+			return this.flex || (this.width !== '*' ? '0 0 auto' : '1 1 0')
+		}
+	}
 }
 </script>
 

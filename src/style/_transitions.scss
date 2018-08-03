@@ -5,3 +5,11 @@
 .fade-enter, .fade-leave-to {
 	opacity: 0;
 }
+
+.slide-up-enter-active, .slide-up-leave-active {
+	transition: .5s;
+}
+
+.slide-up-enter, .slide-up-leave-to {
+	transform: translateY(300px);
+}

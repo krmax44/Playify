@@ -3,7 +3,7 @@
 import Settings from './Settings';
 import LinkBuilder from './LinkBuilder';
 
-let connection = { readyState: 0 };
+let connection = { readyState: 3 };
 let connectionAttempts = 0;
 let searches = [];
 
@@ -17,6 +17,8 @@ Settings
 const codeRequired = new CustomEvent('codeRequired');
 const authSuccess = new CustomEvent('authSuccess');
 const authFail = new CustomEvent('authFail');
+const connectionSuccess = new CustomEvent('connectionSuccess');
+const connectionError = new CustomEvent('connectionError');
 
 const send = (namespace, method, args) => {
 	if (connection.readyState === 1) {
@@ -25,22 +27,29 @@ const send = (namespace, method, args) => {
 		}
 		connection.send(JSON.stringify({ namespace, method, arguments: args }));
 	}
+	else {
+		connection.dispatchEvent(connectionError);
+	}
 };
 
 module.exports = {
 	connect() {
-		if (connection.readyState !== 1) {
+		if (connection.readyState > 1) {
 			connection = new WebSocket('ws://localhost:5672');
-			connection.addEventListener('error', e => console.log(e));
+			connection.addEventListener('error', e => {
+				console.log(e);
+				connection.dispatchEvent(connectionError);
+				connection.close();
+			});
 			connection.addEventListener('open', e => {
 				const key = settings.service.extra.key;
+				connection.dispatchEvent(connectionSuccess);
 				send('connect', 'connect', key ? ['Playify', key] : 'Playify');
 			});
 			connection.addEventListener('message', e => {
 				try {
 					const data = JSON.parse(e.data);
 					const payload = data.payload;
-					
 					switch (data.channel) {
 						case 'connect':
 							if (payload === 'CODE_REQUIRED') {

@@ -1,6 +1,6 @@
 <template>
 	<a :href="href || '#!'" :target="target || ''" @click="click" :class="{ link: true, constant }">
-		<slot/>
+		<slot />
 	</a>
 </template>
 

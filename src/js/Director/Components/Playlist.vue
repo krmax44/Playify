@@ -4,6 +4,7 @@
 			<h2>{{ data.name }}</h2>
 			<h3>{{ data.creator }}</h3>
 			<p>{{ data.description }}</p>
+			<Button inline="true"><Icon icon="transfer" /> Transfer playlist</Button>
 		</div>
 
 		<TrackList :tracks="data.tracks" @play="play" />
@@ -11,7 +12,7 @@
 </template>
 
 <script>
-import { Grid, Column } from '../../Components';
+import { Grid, Column, Button, Icon } from '../../Components';
 import TrackList from './TrackList.vue';
 
 export default {
@@ -21,7 +22,7 @@ export default {
 			this.$emit('play', track);
 		}
 	},
-	components: { TrackList, Grid, Column }
+	components: { TrackList, Grid, Column, Button, Icon }
 }
 </script>
 

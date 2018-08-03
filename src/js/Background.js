@@ -1,38 +1,35 @@
 import Settings from './Settings';
 let settings = {};
 
-const retrieveSettings = () => {
+Settings.subscribe(() => {
 	Settings
 		.get()
 		.then(s => {
 			settings = s;
 		});
-};
-
-retrieveSettings();
-chrome.storage.onChanged.addListener(retrieveSettings);
+}, true);
 
 chrome.webRequest.onBeforeRequest.addListener(details => {
 	if (details.url.startsWith('https://open.spotify.com/')) {
-		let parser = document.createElement('a');
-		parser.href = details.url;
+		const originalUrl = details.url;
 
+		const parser = document.createElement('a');
+		parser.href = originalUrl;
 		if (parser.hash == '#no-playify') {
 			return;
 		}
 
 		const parts = parser.pathname.split('/');
-		console.log(parts);
 		
-		let id, userId, type;
-		id = parts[2];
-		type = parts[1];
-
+		let type = parts[1];
 		if (['album', 'artist', 'track', 'user'].indexOf(type) === -1) {
 			return;
 		}
 
-		const playlistRegex = /\/user\/[^\/\\]+\/playlist\/[a-zA-Z0-9]+/ig; // only user playlists
+		let id = parts[2];
+		let userId = null;
+
+		const playlistRegex = /\/user\/[^\/\\]+\/playlist\/[a-zA-Z0-9]+/ig;
 		if (type === 'user') {
 			if (!playlistRegex.test(parser.pathname)) {
 				return;
@@ -43,9 +40,9 @@ chrome.webRequest.onBeforeRequest.addListener(details => {
 		}
 
 		if (type && id) {
-			Settings.set({ director: { id, userId, type	} });
+			Settings.set({ director: { id, userId, type, originalUrl } });
 			return {
-				redirectUrl: `chrome-extension://${chrome.app.getDetails().id}/index.html`
+				redirectUrl: chrome.extension.getURL('index.html')
 			};
 		}
 

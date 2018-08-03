@@ -1,4 +1,9 @@
 {
-	"presets": ["env"],
+	"presets": [["env", {
+		"targets": {
+			"chrome": "49",
+			"firefox": "51"
+		}
+	}]],
 	"plugins": ["transform-object-rest-spread"]
 }

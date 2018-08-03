@@ -39,6 +39,14 @@ const defaultSettings = {
 		id: '',
 		userId: '',
 		type: ''
+	},
+	transfer: {
+		google_email: '',
+		google_password: '',
+		transfer_password: ''
+	},
+	hasSeen: {
+		intro: false
 	}
 };
 
