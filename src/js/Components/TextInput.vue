@@ -1,20 +1,23 @@
 <template>
-	<div class="input-field" :class="{ focus, dark, error }">
+	<InputWrapper :class="{ focus, dark, error }">
 		<input
-			type="text"
+			:type="type || 'text'"
 			:value="value"
 			:placeholder="placeholder"
-			autocomplete="off"
+			:class="{ dark }"
+			autocomplete="nope"
 			@focus="inputEvent"
 			@focusout="inputEvent"
 			@keyup="inputEvent"
 			@input="valueEvent">
-	</div>
+	</InputWrapper>
 </template>
 
 <script>
+import InputWrapper from './InputWrapper.vue';
+
 export default {
-	props: ['value', 'placeholder', 'dark', 'error'],
+	props: ['type', 'value', 'placeholder', 'dark', 'error'],
 	data() {
 		return {
 			focus: false,
@@ -33,73 +36,39 @@ export default {
 			this.$emit('input', e.target.value);
 		},
 		inputEvent(e) {
-			if ((e.type == 'focus' || e.type == 'keyup') && e.target.value.length > 0) {
+			if ((e.type === 'focus' || e.type === 'keyup') && e.target.value.length > 0) {
 				this.focus = true;
 			}
 			else {
 				this.focus = false;
 			}
 		}
-	}
+	},
+	components: { InputWrapper }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../style/variables.scss';
 
-.input-field {
-	position: relative;
-	padding: 5px 0;
+input {
+	margin: 5px 0;
+	border: 0;
+	background-color: transparent;
+	font-family: $font-stack;
+	font-size: 1em;
+	width: 100%;
+	color: $light;
 
-	&::before, &::after {
-		content: ' ';
-		position: absolute;
-		bottom: 0;
-		border-bottom: 2px $light solid;
-		transition: .3s;
-	}
-
-	&::after {
-		left: 50%;
-		right: 50%;
-		border-bottom: 2px $green solid;
-	}
-
-	&::before, &.focus::after {
-		left: 0;
-		right: 0;
-	}
-
-	input[type='text'] {
-		border: 0;
-		background-color: transparent;
-		font-family: $font-stack;
-		font-size: 1em;
-		width: 100%;
-		color: $light;
-
-		::placeholder {
-			color: rgba(255,255,255,.5);
-		}
+	::placeholder {
+		color: rgba(255,255,255,.5);
 	}
 
 	&.dark {
-		&::before {
-			border-bottom-color: $dark;
-		}
+		color: $dark;
 
-		input[type='text'] {
-			color: $dark;
-
-			::placeholder {
-				color: rgba(0,0,0,.5);
-			}
-		}
-	}
-
-	&.error {
-		&::before, &::after {
-			border-bottom-color: $red;
+		::placeholder {
+			color: rgba(0,0,0,.5);
 		}
 	}
 }

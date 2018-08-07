@@ -5,22 +5,22 @@
 				<Column width="*">
 					<Grid>
 						<Column width="auto">
-							<img :src="data.track.albumArt" :title="data.track.album" class="cover-image">
+							<img :src="track.albumArt" :title="track.album" class="cover-image">
 						</Column>
 						<Column width="*" class="meta">
-							<p><Icon icon="track" /> {{ data.track.title }}</p>
-							<p><Icon icon="artist" /> {{ data.track.artist }}</p>
-							<p><Icon icon="album" /> {{ data.track.album }}</p>
+							<p><Icon icon="track" /> {{ track.title }}</p>
+							<p><Icon icon="artist" /> {{ track.artist }}</p>
+							<p><Icon icon="album" /> {{ track.album }}</p>
 						</Column>
 					</Grid>
 				</Column>
 				<Column width="auto" class="actions">
 					<Button inline="true" @click="prev"><Icon icon="prev" /></Button>
-					<Button inline="true" @click="playPause"><Icon :icon="data.playState === 'playing' ? 'pause' : 'play'" /></Button>
+					<Button inline="true" @click="playPause"><Icon :icon="playState === 'playing' ? 'pause' : 'play'" /></Button>
 					<Button inline="true" @click="next"><Icon icon="next" /></Button>
 				</Column>
 				<Column width="*" class="progress">
-					<p>{{ progress }}</p>
+					<p>{{ progressText }}</p>
 				</Column>
 			</Grid>
 		</div>
@@ -31,10 +31,10 @@
 import { Grid, Column, Icon, Button } from '../../../Components';
 import GPMDP from '../../../GPMDP';
 export default {
-	props: ['data'],
+	props: ['track', 'playState', 'progress'],
 	computed: {
 		visible() {
-			if (this.data.playState !== 'stopped' && this.data.track !== null && this.data.progress !== null) {
+			if (this.playState !== 'stopped' && this.track !== null && this.progress !== null) {
 				document.body.classList.add('padding-bottom');
 				return true;
 			}
@@ -43,7 +43,7 @@ export default {
 				return false;
 			}
 		},
-		progress() {
+		progressText() {
 			const secondsToTime = (milliseconds) => { // https://stackoverflow.com/a/7579799
 				const seconds = Math.floor(milliseconds / 1000);
 				const h = Math.floor(seconds / 3600);
@@ -56,8 +56,8 @@ export default {
 				].filter(a => a).join(':');
 			};
 
-			const current = secondsToTime(this.data.progress.current);
-			const total = secondsToTime(this.data.progress.total);
+			const current = secondsToTime(this.progress.current);
+			const total = secondsToTime(this.progress.total);
 			
 			return `${current} / ${total}`;
 		}

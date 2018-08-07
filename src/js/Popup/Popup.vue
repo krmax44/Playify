@@ -28,11 +28,10 @@ export default {
     }
   },
   created() {
-    let that = this;
     Settings
       .get()
       .then(settings => {
-        let service = that.services.find(service => service.id === settings.service.id);
+        let service = this.services.find(service => service.id === settings.service.id);
         service.active = true;
       });
   },
@@ -46,7 +45,7 @@ export default {
       });
 	  }
   },
-  components: Object.assign(components, { ServiceSelector })
+  components: { ...components,  ServiceSelector }
 }
 </script>
 

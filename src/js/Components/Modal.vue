@@ -21,7 +21,6 @@ export default {
 	methods: {
 		close(e) {
 			if (this.closeable && e.target.classList.contains('modal')) {
-				this.open = false;
 				this.$emit('close');
 			}
 		}
@@ -52,6 +51,8 @@ export default {
 	.modal-inner {
 		max-width: $container-max-width;
 		width: 90%;
+		max-height: 80vh;
+		overflow: auto;
 		padding: 5px;
 		opacity: 0;
 		background-color: $light;

@@ -47,7 +47,7 @@ export default {
 	bottom: 0;
 	position: absolute;
 	background: rgba(255, 255, 255, .2);
-	animation: eq 1.2s infinite ease;
+	animation: eq 2s infinite ease;
 	animation-play-state: paused;
 }
 

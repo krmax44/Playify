@@ -2,20 +2,20 @@
 	<footer>
 		<Container>
 			<div>
-				<Link href="https://krmax44.de" target="_blank">&copy; krmax44</Link>
+				<LinkLabel href="https://krmax44.de" target="_blank">&copy; krmax44</LinkLabel>
 				<p>Spotify, Google, and other mentioned brands are not affiliated with this project.</p>
-				<p>Photos from <Link href="https://unsplash.com" target="_blank">Unsplash</Link></p>
+				<p>Photos from <LinkLabel href="https://unsplash.com" target="_blank">Unsplash</LinkLabel></p>
 			</div>
 		</Container>
 	</footer>
 </template>
 
 <script>
-import Link from './Link.vue';
+import LinkLabel from './LinkLabel.vue';
 import Container from './Container.vue';
 
 export default {
-	components: { Link, Container }
+	components: { LinkLabel, Container }
 }
 </script>
 

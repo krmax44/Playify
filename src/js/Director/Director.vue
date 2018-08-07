@@ -3,22 +3,10 @@
 		<Loading v-if="loading" />
 		<Error v-if="error" :director="director" />
 
-		<Player v-if="!loading && !error" :data="data" :director="director" :service="service" @play="play" />
+		<Player v-if="!loading && !error" :data="data" :director="director" :service="service" @play="play" @transfer="startTransfer" />
 
-		<div v-if="service.id === 'gpmdp'">
-			<GPMDPController :data="gpmdpStates" />
-			<GPMDPSetup :open="gpmdpSetup.open" :fail="gpmdpSetup.failed" @save="authenticate" />
-			<EQ :playing="gpmdpStates.playState === 'playing'" />
-			<Notification :visible="gpmdpStates.error">
-				<Grid>
-					<Column width="*">Can't connect to GPMDP.</Column>
-					<Column>
-						<Button inline="true" href="https://github.com/krmax44/Playify/blob/master/README.md#GPMDP" target="_blank">Help</Button>
-						<Button inline="true" @click="gpmdpConnect">Try again</Button>
-					</Column>
-				</Grid>
-			</Notification>
-		</div>
+		<GPMDP v-if="service.id === 'gpmdp'" />
+		<Transfer v-if="director.type === 'playlist'" :data="data" :fetching="fetching" ref="transfer" />
 	</Page>
 </template>
 
@@ -29,7 +17,7 @@ import directorComponents from './Components';
 import LinkBuilder from '../LinkBuilder';
 import GPMDP from '../GPMDP';
 import axios from 'axios';
-const backend = 'http://localhost:3000';
+const backend = 'https://playifybackend.herokuapp.com'; // https://github.com/krmax44/Playify-Backend
 
 export default {
 	data() {
@@ -44,13 +32,6 @@ export default {
 			gpmdpSetup: {
 				open: false,
 				failed: false
-			},
-			gpmdpStates: {
-				track: null,
-				playState: null,
-				progress: null,
-				connected: false,
-				error: false
 			}
 		}
 	},
@@ -106,18 +87,17 @@ export default {
 					}
 
 					this.data = data;
-
-					if (this.service.id === 'gpmdp') {
-						this.gpmdpConnect();
-					}
 					
-					if (type !== 'playlist') {
+					/*if (type !== 'playlist') {
 						if (this.service.id !== 'gpmdp') {
 							window.location.href = LinkBuilder(data, type, this.service.url);
 						}
 					}
 					else {
-						window.addEventListener('scroll', () => this.endlessScroll);
+					}*/
+
+					if (type === 'playlist') {
+						window.addEventListener('scroll', this.endlessScroll);
 					}
 					
 					this.loading = false;
@@ -137,51 +117,35 @@ export default {
 				window.open(LinkBuilder(data, 'track', this.service.url), '_blank');
 			}
 		},
-		authenticate(pin) {
-			GPMDP.authenticate(pin);
-		},
-		gpmdpConnect() {
-			if (this.gpmdpStates.connected === false) {
-				const gpmdp = GPMDP.connect();
-				this.gpmdpStates.connected = true;
-				gpmdp.addEventListener('connectionSuccess', () => {
-					this.gpmdpStates.connected = true;
-					this.gpmdpStates.error = false;
-				});
-				gpmdp.addEventListener('connectionError', () => {
-					this.gpmdpStates.connected = false;
-					this.gpmdpStates.error = true;
-				});
-				gpmdp.addEventListener('codeRequired', () => {
-					this.gpmdpSetup.open = true;
-				});
-				gpmdp.addEventListener('authFail', () => {
-					console.log('authfail');
-					this.gpmdpSetup.open = true;
-					this.gpmdpSetup.failed = true;
-				});
-				gpmdp.addEventListener('authSuccess', () => {
-					this.gpmdpSetup.open = false;
-					this.gpmdpSetup.failed = false;
-				});
-				gpmdp.addEventListener('playStateChanged', e => {
-					if (this.gpmdpStates.playState !== 'stopped' || e.detail.playState !== 'paused') {
-						this.gpmdpStates.playState = e.detail.playState;
-					}
-				});
-				gpmdp.addEventListener('progressChanged', e => {
-					this.gpmdpStates.progress = e.detail.progress;
-				});
-				gpmdp.addEventListener('trackChanged', e => {
-					this.gpmdpStates.track = e.detail.track;
-				});
-			}
+		startTransfer() {
+			this.$refs.transfer.connect();
+			this.fetching = true;
+			const getAllTracks = () => {
+				this.page++;
+				const { id, userId } = this.director;
+				axios
+					.get(`${backend}/playlist/${this.page}`, {
+						params: { id, userId }
+					})
+					.then(response => {
+						this.data.tracks.push(...response.data.tracks);
+						if (this.data.tracks.length < this.data.total) {
+							getAllTracks();
+						}
+						else {
+							this.fetching = false;
+						}
+					})
+					.catch(e => console.log(e));
+			};
+			getAllTracks();
 		},
 		endlessScroll() {
 			const bottomReached = document.documentElement.scrollTop + window.innerHeight + 200 >= document.documentElement.offsetHeight;
-			if (bottomReached && this.fetching === false && this.data.tracks.length !== this.data.total) {
+			if (bottomReached && this.fetching === false && this.data.tracks.length < this.data.total) {
 				this.fetching = true;
 				this.page++;
+				const { id, userId } = this.director;
 				axios
 					.get(`${backend}/playlist/${this.page}`, {
 						params: { id, userId }

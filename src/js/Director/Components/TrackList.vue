@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { Grid, Column, Icon, Link, Button } from '../../Components';
+import { Grid, Column, Icon, LinkLabel, Button } from '../../Components';
 
 export default {
 	props: ['tracks', 'album'],
@@ -38,7 +38,7 @@ export default {
 			this.$emit('play', track);
 		}
 	},
-	components: { Grid, Column, Icon, Link, Button }
+	components: { Grid, Column, Icon, LinkLabel, Button }
 }
 </script>
 

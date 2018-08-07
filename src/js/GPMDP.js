@@ -3,7 +3,7 @@
 import Settings from './Settings';
 import LinkBuilder from './LinkBuilder';
 
-let connection = { readyState: 3 };
+let connection = { readyState: 4 };
 let connectionAttempts = 0;
 let searches = [];
 
@@ -16,7 +16,7 @@ Settings
 
 const codeRequired = new CustomEvent('codeRequired');
 const authSuccess = new CustomEvent('authSuccess');
-const authFail = new CustomEvent('authFail');
+const authError = new CustomEvent('authError');
 const connectionSuccess = new CustomEvent('connectionSuccess');
 const connectionError = new CustomEvent('connectionError');
 
@@ -46,6 +46,9 @@ module.exports = {
 				connection.dispatchEvent(connectionSuccess);
 				send('connect', 'connect', key ? ['Playify', key] : 'Playify');
 			});
+			connection.addEventListener('close', e => {
+				connection.dispatchEvent(connectionError);
+			});
 			connection.addEventListener('message', e => {
 				try {
 					const data = JSON.parse(e.data);
@@ -53,7 +56,7 @@ module.exports = {
 					switch (data.channel) {
 						case 'connect':
 							if (payload === 'CODE_REQUIRED') {
-								connection.dispatchEvent(connectionAttempts === 0 ? codeRequired : authFail);
+								connection.dispatchEvent(connectionAttempts === 0 ? codeRequired : authError);
 								connectionAttempts++;
 							}
 							else {
@@ -68,6 +71,7 @@ module.exports = {
 									})
 									.then(() => {
 										settings.service.extra.key = payload;
+										connectionAttempts = 0;
 										send('connect', 'connect', ['Playify', payload]);
 										connection.dispatchEvent(authSuccess);
 									});

@@ -1,10 +1,10 @@
 <template>
-	<img class="icon" :src="'static/icons/' + icon + '.svg'" :style="{ height: height ? height : '18px' }">
+	<img class="icon" :src="'static/icons/' + icon + '.svg'" :style="{ height: height ? height : '18px' }" :class="{ black }">
 </template>
 
 <script>
 export default {
-	props: ['icon', 'height']
+	props: ['icon', 'height', 'black']
 }
 </script>
 
@@ -12,6 +12,10 @@ export default {
 img.icon {
 	width: auto;
 	margin: 0 5px;
+
+	&.black {
+		filter: invert(1);
+	}
 }
 
 .btn > .icon {

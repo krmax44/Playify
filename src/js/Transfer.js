@@ -2,7 +2,7 @@
 
 import Settings from './Settings';
 
-let connection = { readyState: 3 };
+let connection = { readyState: 4 };
 let connectionAttempts = 0;
 
 let settings = {};
@@ -12,8 +12,6 @@ Settings
 		settings = s;
 	});
 
-const authSuccess = new CustomEvent('authSuccess');
-const authFail = new CustomEvent('authFail');
 const connectionSuccess = new CustomEvent('connectionSuccess');
 const connectionError = new CustomEvent('connectionError');
 
@@ -53,7 +51,9 @@ module.exports = {
 							connection.dispatchEvent(madeProgress);
 							break;
 						case 'auth':
-							connection.dispatchEvent(data.error ? authFail : authSuccess);
+							const google = data.google || false;
+							const authEvent = new CustomEvent(data.error ? 'authError' : 'authSuccess', { detail: { google } });
+							connection.dispatchEvent(authEvent);
 							break;
 					}
 				}
@@ -64,7 +64,7 @@ module.exports = {
 		}
 		return connection;
 	},
-	testAuth(auth) {
+	authenticate(auth) {
 		send({
 			q: 'auth',
 			...auth
@@ -82,7 +82,7 @@ module.exports = {
 			...auth,
 			tracks,
 			playlist,
-			newPlaylist
+			new_playlist: newPlaylist
 		});
 	}
 };

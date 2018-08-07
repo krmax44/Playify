@@ -1,6 +1,6 @@
 <template>
 	<div class="loading">
-		<Icon icon="playify" height="100%"/>
+		<Icon icon="playify" height="100%" />
 	</div>
 </template>
 

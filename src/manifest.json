@@ -1,9 +1,15 @@
 {
 	"manifest_version": 2,
+	"applications": {
+		"gecko": {
+			"id": "playify@krmax44.de",
+			"strict_min_version": "42.0"
+		}
+	},
 	"name": "Playify",
 	"browser_action": {
-	    "default_icon": "static/icon-128.png",
-	    "default_popup": "popup.html"
+		"default_icon": "static/icon-128.png",
+		"default_popup": "popup.html"
 	},
 	"icons": {
 		"16": "static/icon-16.png",
@@ -13,6 +19,6 @@
 	"background": {
 		"scripts": ["background.js"]
 	},
-	"permissions": ["webRequest", "webRequestBlocking", "*://*.spotify.com/*", "*://playify.krmax44.de/*", "storage", "activeTab"],
+	"permissions": ["webRequest", "webRequestBlocking", "*://*.spotify.com/*", "storage", "activeTab"],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

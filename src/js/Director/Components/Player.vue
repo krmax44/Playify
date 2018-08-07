@@ -1,13 +1,9 @@
 <template>
 	<div class="player">
-		<div v-if="director.type === 'playlist'">
-			<Playlist :data="data" @play="play" />
-		</div>
-		<div v-else-if="service.id === 'gpmdp'">
-			<Album v-if="director.type === 'album'" :data="data" @play="play" />
-			<Artist v-if="director.type === 'artist'" :data="data" @play="play" />
-			<Track v-if="director.type === 'track'" :data="data" @play="play" />
-		</div>
+		<Playlist v-if="director.type === 'playlist'" :data="data" @play="play" @transfer="transfer" />
+		<Album v-if="director.type === 'album'" :data="data" @play="play" />
+		<Artist v-if="director.type === 'artist'" :data="data" @play="play" />
+		<Track v-if="director.type === 'track'" :data="data" @play="play" />
 	</div>
 </template>
 
@@ -22,6 +18,9 @@ export default {
 	methods: {
 		play(data) {
 			this.$emit('play', data);
+		},
+		transfer() {
+			this.$emit('transfer');
 		}
 	},
 	components: { Playlist, Album, Artist, Track }

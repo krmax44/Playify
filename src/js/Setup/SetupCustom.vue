@@ -1,16 +1,15 @@
 <template>
 	<Page title="Custom service" justifyContent="center">
 		<h2>Please enter the URL of your service, replacing the search term with %q.</h2>
-		<Form @submit="save">
-			<Grid justifyContent="center" alignItems="center">
-				<Column width="*">
-					<TextInput placeholder="https://example.com/search/%q" v-model="serviceUrl"></TextInput>
-				</Column>
-				<Column>
-					<Button @click="save">Save</Button>
-				</Column>
-			</Grid>
-		</Form>
+		<Grid justifyContent="center" alignItems="center">
+			<Column width="*">
+				<TextInput placeholder="https://example.com/search/%q" v-model="serviceUrl"></TextInput>
+			</Column>
+			<Column>
+				<Button @click="save">Save</Button>
+			</Column>
+		</Grid>
+		
 		<h2>Examples:</h2>
 		<Grid>
 			<Column><Button @click="serviceUrl = 'https://music.amazon.com/search/%q'" dark="true" inline="true"><Icon icon="amazon" /> Amazon.com</Button></Column>
@@ -32,11 +31,10 @@ export default {
 		}
 	},
 	created() {
-		let that = this;
 		Settings
 			.get()
 			.then(settings => {
-				that.serviceUrl = settings.service.url || '';
+				this.serviceUrl = settings.service.url || '';
 			});
 	},
 	methods: {

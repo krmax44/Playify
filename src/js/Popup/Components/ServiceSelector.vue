@@ -4,14 +4,14 @@
 			<input type="radio" :name="name" :id="service.id" :value="service.id" :checked="service.active" @change="change">
 			<label :for="service.id">{{ service.name }}</label>
 			<transition name="fade">
-				<Link v-if="['gpmdp', 'custom'].indexOf(service.id) !== -1  && service.active" constant="true" @click="setup(service.id)">Setup</Link>
+				<LinkLabel v-if="service.id === 'custom'  && service.active" constant="true" @click="setup(service.id)">Setup</LinkLabel>
 			</transition>
 		</div>
 	</div>
 </template>
 
 <script>
-import { Link } from '../../Components';
+import { LinkLabel } from '../../Components';
 
 export default {
 	props: ['services'],
@@ -22,14 +22,13 @@ export default {
 	},
 	methods: {
 		change(e) {
-			console.log(e);
 			this.$emit('serviceChanged', e.srcElement.value);
 		},
 		setup(service) {
 			window.open(service + '.html', '_blank');
 		}
 	},
-	components: { Link }
+	components: { LinkLabel }
 }
 </script>
 
