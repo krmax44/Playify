@@ -1,13 +1,11 @@
 <div align="center">
 	<img src="https://i.imgur.com/4y0EiJ3.png">
 	<h3>Playify opens Spotify links in various other streaming services and offers integration with the GPMDP. It can also convert playlists to Google Play Music. <a href="https://youtu.be/NNu1ZseYMt8">Watch the video</a></h3>
-	<img src="https://img.shields.io/chrome-web-store/users/nimelepbpejjlbmoobocpfnjhihnpked.svg?logo=google-chrome&logoColor=white&label=downloads&style=for-the-badge">
-	<img src="https://img.shields.io/chrome-web-store/rating/nimelepbpejjlbmoobocpfnjhihnpked.svg?logo=google-chrome&logoColor=white&label=rating&style=for-the-badge">
+	<a href="https://chrome.google.com/webstore/detail/playify/cniimiiflgmmjmcohcgnofcdiifdifef">
+		<img src="https://img.shields.io/chrome-web-store/users/nimelepbpejjlbmoobocpfnjhihnpked.svg?logo=google-chrome&logoColor=white&label=downloads&style=for-the-badge">
+		<img src="https://img.shields.io/chrome-web-store/rating/nimelepbpejjlbmoobocpfnjhihnpked.svg?logo=google-chrome&logoColor=white&label=rating&style=for-the-badge">
+	</a>
 </div>
-
-## Download
-
-You can download Playify from the [Chrome Web Store](https://chrome.google.com/webstore/detail/playify/cniimiiflgmmjmcohcgnofcdiifdifef).
 
 ## How it works
 
