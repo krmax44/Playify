@@ -1,7 +1,7 @@
 {
   "name": "playify",
-  "version": "3.0.0",
-  "description": "Opens Spotify links in various other streaming services",
+  "version": "3.0.1",
+  "description": "Opens Spotify links in other streaming services",
   "main": "index.js",
   "repository": "https://github.com/krmax44/Playify.git",
   "author": "krmax44 <krmax44@gmail.com>",

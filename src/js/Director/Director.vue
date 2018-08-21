@@ -128,13 +128,13 @@ export default {
 						params: { id, userId }
 					})
 					.then(response => {
-						this.data.tracks.push(...response.data.tracks);
-						if (this.data.tracks.length < this.data.total) {
-							getAllTracks();
+						if (response.data.tracks) {
+							this.data.tracks.push(...response.data.tracks);
+							if (this.data.tracks.length < this.data.total) {
+								return getAllTracks();
+							}
 						}
-						else {
-							this.fetching = false;
-						}
+						this.fetching = false;
 					})
 					.catch(e => console.log(e));
 			};
