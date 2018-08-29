@@ -8,6 +8,9 @@
 
 ## How it works
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1398866a049f42dda577eb1f33e417b8)](https://app.codacy.com/app/krmax44/Playify?utm_source=github.com&utm_medium=referral&utm_content=krmax44/Playify&utm_campaign=Badge_Grade_Dashboard)
+
+
 It's simple. You click on a Spotify link, and it opens in your streaming service of choice. For the best experience, the [Google Play Music Desktop Player](https://googleplaymusicdesktopplayer.com) is recommended. If you don't want to open a song in Spotify, add `#no-playify` at the end of the URL.
 
 ### GPMDP
