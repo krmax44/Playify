@@ -17,7 +17,7 @@ import directorComponents from './Components';
 import LinkBuilder from '../LinkBuilder';
 import GPMDP from '../GPMDP';
 import axios from 'axios';
-const backend = 'https://playifybackend.herokuapp.com'; // https://github.com/krmax44/Playify-Backend
+const backend = 'https://playify.krmax44.de'; // https://github.com/krmax44/Playify-Backend
 
 export default {
 	data() {
@@ -88,14 +88,6 @@ export default {
 
 					this.data = data;
 					
-					/*if (type !== 'playlist') {
-						if (this.service.id !== 'gpmdp') {
-							window.location.href = LinkBuilder(data, type, this.service.url);
-						}
-					}
-					else {
-					}*/
-
 					if (type === 'playlist') {
 						window.addEventListener('scroll', this.endlessScroll);
 					}
