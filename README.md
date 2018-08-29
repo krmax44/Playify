@@ -1,10 +1,9 @@
 <div align="center">
 	<img src="https://i.imgur.com/4y0EiJ3.png">
 	<h3>Playify opens Spotify links in various other streaming services and offers integration with the GPMDP. It can also convert playlists to Google Play Music. <a href="https://youtu.be/NNu1ZseYMt8">Watch the video</a></h3>
-	<a href="https://chrome.google.com/webstore/detail/playify/cniimiiflgmmjmcohcgnofcdiifdifef">
-		<img src="https://img.shields.io/chrome-web-store/users/cniimiiflgmmjmcohcgnofcdiifdifef.svg?logo=google-chrome&logoColor=white&label=downloads&style=for-the-badge">
-		<img src="https://img.shields.io/chrome-web-store/rating/cniimiiflgmmjmcohcgnofcdiifdifef.svg?logo=google-chrome&logoColor=white&label=rating&style=for-the-badge">
-	</a>
+	<a href="https://chrome.google.com/webstore/detail/playify/cniimiiflgmmjmcohcgnofcdiifdifef" title="Download"><img src="https://img.shields.io/chrome-web-store/users/cniimiiflgmmjmcohcgnofcdiifdifef.svg?logo=google-chrome&logoColor=white&label=downloads&style=flat"></a>&nbsp;
+	<a href="https://chrome.google.com/webstore/detail/playify/cniimiiflgmmjmcohcgnofcdiifdifef" title="Rate"><img src="https://img.shields.io/chrome-web-store/rating/cniimiiflgmmjmcohcgnofcdiifdifef.svg?logo=google-chrome&logoColor=white&label=rating&style=flat"></a>&nbsp;
+	<a href="https://www.codacy.com/project/krmax44/Playify/dashboard" title="for my ego"><img src="https://img.shields.io/codacy/grade/0c6ed9957cee40ae895671514f865e87.svg?label=code%20quality&style=flat"></a>
 </div>
 
 ## How it works
