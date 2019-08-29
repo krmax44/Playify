@@ -1,14 +1,35 @@
 <template>
 	<div>
-		<TransferSetup :open="setup.open" :error="setup.error" :googleError="setup.googleError" @save="authenticate" @close="setup.open = false" />
-		<TransferPicker :open="picker.open" :playlists="picker.playlists" :fetching="fetching" @save="transfer" @close="picker.open = false" />
-		<TransferProgress :open="progress.open" :progress="progress.progress" @close="progress.open = false" />
+		<TransferSetup
+			:open="setup.open"
+			:error="setup.error"
+			:googleError="setup.googleError"
+			@save="authenticate"
+			@close="setup.open = false"
+		/>
+		<TransferPicker
+			:open="picker.open"
+			:playlists="picker.playlists"
+			:fetching="fetching"
+			@save="transfer"
+			@close="picker.open = false"
+		/>
+		<TransferProgress
+			:open="progress.open"
+			:progress="progress.progress"
+			@close="progress.open = false"
+		/>
 
 		<Notification :visible="error">
 			<Grid>
 				<Column width="*">Can't connect to Transfer.</Column>
 				<Column>
-					<Button inline="true" href="https://github.com/krmax44/Playify-Transfer/blob/master/README.md#playify-transfer" target="_blank">Help</Button>
+					<Button
+						inline="true"
+						href="https://github.com/krmax44/Playify-Transfer/blob/master/README.md#playify-transfer"
+						target="_blank"
+						>Help</Button
+					>
 					<Button inline="true" @click="connect">Try again</Button>
 					<Button inline="true" @click="error = false">Close</Button>
 				</Column>
@@ -49,7 +70,7 @@ export default {
 				password: null
 			},
 			connection: { readyState: 3 }
-		}
+		};
 	},
 	methods: {
 		connect() {
@@ -82,11 +103,9 @@ export default {
 				this.connection.addEventListener('madeProgress', e => {
 					this.progress.progress.unshift(e.detail);
 				});
-			}
-			else if (this.auth.auth === null) {
+			} else if (this.auth.auth === null) {
 				this.setup.open = true;
-			}
-			else if (this.progress.progress.length === 0) {
+			} else if (this.progress.progress.length === 0) {
 				this.picker.open = true;
 			}
 		},
@@ -98,12 +117,22 @@ export default {
 			this.picker.open = false;
 			this.progress.open = true;
 			const { playlist, newPlaylist } = data;
-			const tracks = this.data.tracks.map(track => `${track.name} - ${track.artists[0]}`);
+			const tracks = this.data.tracks.map(
+				track => `${track.name} - ${track.artists[0]}`
+			);
 			Transfer.transferPlaylist(this.auth, tracks, playlist, newPlaylist);
 		}
 	},
-	components: { TransferSetup, TransferPicker, TransferProgress, Grid, Column, Button, Notification }
-}
+	components: {
+		TransferSetup,
+		TransferPicker,
+		TransferProgress,
+		Grid,
+		Column,
+		Button,
+		Notification
+	}
+};
 </script>
 
 <style lang="scss" scoped>

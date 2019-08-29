@@ -9,7 +9,7 @@
 <script>
 export default {
 	props: ['visible']
-}
+};
 </script>
 
 <style lang="scss" scoped>

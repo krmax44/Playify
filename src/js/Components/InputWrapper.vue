@@ -7,7 +7,7 @@
 <script>
 export default {
 	props: ['classes']
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -16,12 +16,13 @@ export default {
 .input-field {
 	position: relative;
 
-	&::before, &::after {
+	&::before,
+	&::after {
 		content: ' ';
 		position: absolute;
 		bottom: 0;
 		border-bottom: 2px $light solid;
-		transition: .3s;
+		transition: 0.3s;
 	}
 
 	&::after {
@@ -30,7 +31,8 @@ export default {
 		border-bottom: 2px $green solid;
 	}
 
-	&::before, &.focus::after {
+	&::before,
+	&.focus::after {
 		left: 0;
 		right: 0;
 	}
@@ -42,7 +44,8 @@ export default {
 	}
 
 	&.error {
-		&::before, &::after {
+		&::before,
+		&::after {
 			border-bottom-color: $red;
 		}
 	}

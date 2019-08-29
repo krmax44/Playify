@@ -1,7 +1,5 @@
 <template>
-	<div
-		:style="{ flex: f, width: w }"
-		class="column">
+	<div :style="{ flex: f, width: w }" class="column">
 		<slot />
 	</div>
 </template>
@@ -23,10 +21,10 @@ export default {
 			return this.width !== '*' ? this.width : 'auto';
 		},
 		f() {
-			return this.flex || (this.width !== '*' ? '0 0 auto' : '1 1 0')
+			return this.flex || (this.width !== '*' ? '0 0 auto' : '1 1 0');
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss" scoped>

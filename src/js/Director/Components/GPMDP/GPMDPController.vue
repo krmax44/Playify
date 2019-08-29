@@ -5,7 +5,11 @@
 				<Column width="*">
 					<Grid>
 						<Column width="auto">
-							<img :src="track.albumArt" :title="track.album" class="cover-image">
+							<img
+								:src="track.albumArt"
+								:title="track.album"
+								class="cover-image"
+							/>
 						</Column>
 						<Column width="*" class="meta">
 							<p><Icon icon="track" /> {{ track.title }}</p>
@@ -15,9 +19,11 @@
 					</Grid>
 				</Column>
 				<Column width="auto" class="actions">
-					<Button inline="true" @click="prev"><Icon icon="prev" /></Button>
-					<Button inline="true" @click="playPause"><Icon :icon="playState === 'playing' ? 'pause' : 'play'" /></Button>
-					<Button inline="true" @click="next"><Icon icon="next" /></Button>
+					<Button inline="true" @click="prev"><Icon icon="prev"/></Button>
+					<Button inline="true" @click="playPause"
+						><Icon :icon="playState === 'playing' ? 'pause' : 'play'"
+					/></Button>
+					<Button inline="true" @click="next"><Icon icon="next"/></Button>
 				</Column>
 				<Column width="*" class="progress">
 					<p>{{ progressText }}</p>
@@ -34,31 +40,33 @@ export default {
 	props: ['track', 'playState', 'progress'],
 	computed: {
 		visible() {
-			if (this.playState !== 'stopped' && this.track !== null && this.progress !== null) {
+			if (
+				this.playState !== 'stopped' &&
+				this.track !== null &&
+				this.progress !== null
+			) {
 				document.body.classList.add('padding-bottom');
 				return true;
-			}
-			else {
+			} else {
 				document.body.classList.remove('padding-bottom');
 				return false;
 			}
 		},
 		progressText() {
-			const secondsToTime = (milliseconds) => { // https://stackoverflow.com/a/7579799
+			const secondsToTime = milliseconds => {
+				// https://stackoverflow.com/a/7579799
 				const seconds = Math.floor(milliseconds / 1000);
 				const h = Math.floor(seconds / 3600);
 				const m = Math.floor((seconds % 3600) / 60);
 				const s = seconds % 60;
-				return [
-					h,
-					m > 9 ? m : (h ? '0' + m : m || '0'),
-					s > 9 ? s : '0' + s,
-				].filter(a => a).join(':');
+				return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
+					.filter(a => a)
+					.join(':');
 			};
 
 			const current = secondsToTime(this.progress.current);
 			const total = secondsToTime(this.progress.total);
-			
+
 			return `${current} / ${total}`;
 		}
 	},
@@ -74,7 +82,7 @@ export default {
 		}
 	},
 	components: { Grid, Column, Icon, Button }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -104,7 +112,7 @@ export default {
 
 	.meta {
 		img.icon {
-			opacity: .5;
+			opacity: 0.5;
 		}
 
 		p {

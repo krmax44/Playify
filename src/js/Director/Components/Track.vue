@@ -16,12 +16,17 @@ export default {
 	props: ['data'],
 	computed: {
 		artist() {
-			return this.data.artists.reduce((a, b) => a === '' ? b : `${a}, ${b}`, '');
+			return this.data.artists.reduce(
+				(a, b) => (a === '' ? b : `${a}, ${b}`),
+				''
+			);
 		}
 	},
 	created() {
 		if (this.data.album.images.length > 0) {
-			const image = this.data.album.images.sort((a, b) => a.width < b.width ? 1 : -1)[0].url;
+			const image = this.data.album.images.sort((a, b) =>
+				a.width < b.width ? 1 : -1
+			)[0].url;
 			document.body.style.backgroundImage = `url(${image})`;
 			document.body.classList.add('background-tiles');
 		}
@@ -32,7 +37,7 @@ export default {
 		}
 	},
 	components: { Grid, Column, Button, Icon }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -44,7 +49,8 @@ export default {
 	min-height: 100%;
 	text-align: center;
 
-	h1, h2 {
+	h1,
+	h2 {
 		text-shadow: 0 0 10px $dark;
 		margin: 0;
 	}

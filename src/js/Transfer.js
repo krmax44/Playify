@@ -1,25 +1,14 @@
 // interface for https://github.com/krmax44/Playify-Transfer
 
-import Settings from './Settings';
-
 let connection = { readyState: 4 };
-let connectionAttempts = 0;
-
-let settings = {};
-Settings
-	.get()
-	.then(s => {
-		settings = s;
-	});
 
 const connectionSuccess = new CustomEvent('connectionSuccess');
 const connectionError = new CustomEvent('connectionError');
 
-const send = (data) => {
+const send = data => {
 	if (connection.readyState === 1) {
 		connection.send(JSON.stringify(data));
-	}
-	else {
+	} else {
 		connection.dispatchEvent(connectionError);
 	}
 };
@@ -42,22 +31,28 @@ module.exports = {
 					switch (data.q) {
 						case 'playlists':
 							const playlists = data.lists;
-							const receivedPlaylists = new CustomEvent('receivedPlaylists', { detail: { playlists } });
+							const receivedPlaylists = new CustomEvent('receivedPlaylists', {
+								detail: { playlists }
+							});
 							connection.dispatchEvent(receivedPlaylists);
 							break;
 						case 'progress':
 							const { track, error } = data;
-							const madeProgress = new CustomEvent('madeProgress', { detail: { track, error } });
+							const madeProgress = new CustomEvent('madeProgress', {
+								detail: { track, error }
+							});
 							connection.dispatchEvent(madeProgress);
 							break;
 						case 'auth':
 							const google = data.google || false;
-							const authEvent = new CustomEvent(data.error ? 'authError' : 'authSuccess', { detail: { google } });
+							const authEvent = new CustomEvent(
+								data.error ? 'authError' : 'authSuccess',
+								{ detail: { google } }
+							);
 							connection.dispatchEvent(authEvent);
 							break;
 					}
-				}
-				catch (e) {
+				} catch (e) {
 					console.log(e); // handle malformatted JSON, etc.
 				}
 			});

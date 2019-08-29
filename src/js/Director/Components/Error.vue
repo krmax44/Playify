@@ -1,7 +1,9 @@
 <template>
 	<div class="error">
 		<h2>Couldn't find that...</h2>
-		<Button @click="openWithSpotify" dark="true"><Icon icon="spotify" /> Open with Spotify</Button>
+		<Button @click="openWithSpotify" dark="true">
+			<Icon icon="spotify" /> Open with Spotify
+		</Button>
 	</div>
 </template>
 
@@ -11,14 +13,13 @@ export default {
 	props: ['director'],
 	methods: {
 		openWithSpotify() {
-			const parser = document.createElement('a');
-			parser.href = this.director.originalUrl;
-			parser.hash = '#no-playify';
-			window.location.href = parser.href;
+			const url = new URL(this.director.originalUrl);
+			url.hash = '#no-playify';
+			window.location.href = url.href;
 		}
 	},
 	components: { Button, Icon }
-}
+};
 </script>
 
 <style lang="scss" scoped>

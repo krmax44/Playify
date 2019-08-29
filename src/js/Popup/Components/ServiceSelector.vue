@@ -1,10 +1,22 @@
 <template>
 	<div>
 		<div v-for="service in services" :key="service.id" class="input-field">
-			<input type="radio" :name="name" :id="service.id" :value="service.id" :checked="service.active" @change="change">
+			<input
+				type="radio"
+				:name="name"
+				:id="service.id"
+				:value="service.id"
+				:checked="service.active"
+				@change="change"
+			/>
 			<label :for="service.id">{{ service.name }}</label>
 			<transition name="fade">
-				<LinkLabel v-if="service.id === 'custom'  && service.active" constant="true" @click="setup(service.id)">Setup</LinkLabel>
+				<LinkLabel
+					v-if="service.id === 'custom' && service.active"
+					constant="true"
+					@click="setup(service.id)"
+					>Setup</LinkLabel
+				>
 			</transition>
 		</div>
 	</div>
@@ -17,8 +29,10 @@ export default {
 	props: ['services'],
 	data() {
 		return {
-			name: Math.random().toString(36).substring(2)
-		}
+			name: Math.random()
+				.toString(36)
+				.substring(2)
+		};
 	},
 	methods: {
 		change(e) {
@@ -29,7 +43,7 @@ export default {
 		}
 	},
 	components: { LinkLabel }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -48,9 +62,10 @@ export default {
 			left: 30px;
 			margin-bottom: 5px;
 			color: $light;
-			transition: .3s;
+			transition: 0.3s;
 
-			&::after, &::before {
+			&::after,
+			&::before {
 				display: inline-block;
 				position: absolute;
 				left: -30px;
@@ -58,7 +73,7 @@ export default {
 				content: ' ';
 				border-radius: 50%;
 				border: 2px $light solid;
-				transition: .3s;
+				transition: 0.3s;
 			}
 
 			&::before {
@@ -70,7 +85,7 @@ export default {
 
 		&:checked + label {
 			color: $green;
-			
+
 			&::before {
 				transform: scale(1);
 			}

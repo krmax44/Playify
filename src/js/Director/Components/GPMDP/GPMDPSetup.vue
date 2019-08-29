@@ -4,7 +4,13 @@
 
 		<Grid justifyContent="center" alignItems="center">
 			<Column width="*">
-				<TextInput :error="error" dark="true" :value="code" @input="input" placeholder="1234" /> 
+				<TextInput
+					:error="error"
+					dark="true"
+					:value="code"
+					@input="input"
+					placeholder="1234"
+				/>
 			</Column>
 			<Column>
 				<Button @click="save">Connect</Button>
@@ -14,7 +20,6 @@
 </template>
 
 <script>
-import Settings from '../../../Settings';
 import { Button, Modal, TextInput, Grid, Column } from '../../../Components';
 
 export default {
@@ -22,7 +27,7 @@ export default {
 	data() {
 		return {
 			code: ''
-		}
+		};
 	},
 	methods: {
 		save() {
@@ -36,5 +41,5 @@ export default {
 		}
 	},
 	components: { Button, Modal, TextInput, Grid, Column }
-}
+};
 </script>

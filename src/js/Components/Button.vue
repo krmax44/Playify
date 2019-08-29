@@ -1,6 +1,11 @@
 <template>
 	<div :class="{ 'btn-mask': true, block: !inline }">
-		<a :href="href || '#!'" :target="target || ''" @click="click" :class="{ btn: true, dark }">
+		<a
+			:href="href || '#!'"
+			:target="target || ''"
+			@click="click"
+			:class="{ btn: true, dark }"
+		>
 			<span><slot /></span>
 		</a>
 	</div>
@@ -14,7 +19,7 @@ export default {
 			this.$emit('click', e);
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -54,7 +59,8 @@ export default {
 		margin-left: 0;
 	}
 
-	&::before, &::after {
+	&::before,
+	&::after {
 		position: absolute;
 		left: 0;
 		right: 0;
@@ -73,12 +79,12 @@ export default {
 
 	&::after {
 		height: 0;
-		transition: .2s;
-		background-color: rgba(0,0,0,.05);
+		transition: 0.2s;
+		background-color: rgba(0, 0, 0, 0.05);
 	}
 
 	&.dark::after {
-		background-color: rgba(255,255,255,.1);
+		background-color: rgba(255, 255, 255, 0.1);
 	}
 
 	&:hover::after {

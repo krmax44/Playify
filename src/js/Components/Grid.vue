@@ -7,7 +7,7 @@
 <script>
 export default {
 	props: ['justifyContent', 'alignItems']
-}
+};
 </script>
 
 <style lang="scss">

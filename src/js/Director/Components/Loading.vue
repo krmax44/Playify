@@ -9,7 +9,7 @@ import { Icon } from '../../Components';
 
 export default {
 	components: { Icon }
-}
+};
 </script>
 
 <style lang="scss" scoped>

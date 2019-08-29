@@ -2,9 +2,9 @@
 	<div class="page">
 		<Header>{{ title }}</Header>
 		<Container :style="{ justifyContent, alignItems }">
-			<slot/>
+			<slot />
 		</Container>
-		<Footer/>
+		<Footer />
 	</div>
 </template>
 
@@ -16,7 +16,7 @@ import Footer from './Footer.vue';
 export default {
 	props: ['title', 'justifyContent', 'alignItems'],
 	components: { Header, Container, Footer }
-}
+};
 </script>
 
 <style lang="scss" scoped>

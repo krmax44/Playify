@@ -1,13 +1,19 @@
 <template>
 	<div class="tracklist">
 		<Grid v-for="(track, i) in trackList" :key="i">
-			<Column width="auto" v-if="!album"><img :src="track.image" class="cover"></Column>
+			<Column width="auto" v-if="!album"
+				><img :src="track.image" class="cover"
+			/></Column>
 			<Column width="*" class="meta">
 				<p class="title"><Icon icon="track" /> {{ track.name }}</p>
 				<p class="artist"><Icon icon="artist" /> {{ track.artist }}</p>
-				<p class="album" v-if="!album"><Icon icon="album" /> {{ track.album.name }}</p>
+				<p class="album" v-if="!album">
+					<Icon icon="album" /> {{ track.album.name }}
+				</p>
 			</Column>
-			<Column width="auto" class="action"><Button @click="play(track)">Play</Button></Column>
+			<Column width="auto" class="action"
+				><Button @click="play(track)">Play</Button></Column
+			>
 		</Grid>
 	</div>
 </template>
@@ -22,13 +28,17 @@ export default {
 			return this.tracks.map(track => {
 				if (!this.album) {
 					if (track.album.images.length > 0) {
-						track.image = track.album.images.sort((a, b) => a.width > b.width ? 1 : -1)[0].url;
-					}
-					else {
+						track.image = track.album.images.sort((a, b) =>
+							a.width > b.width ? 1 : -1
+						)[0].url;
+					} else {
 						track.image = '/static/icons/no-cover.svg';
 					}
 				}
-				track.artist = track.artists.reduce((a, b) => a === '' ? b : `${a}, ${b}`, '');
+				track.artist = track.artists.reduce(
+					(a, b) => (a === '' ? b : `${a}, ${b}`),
+					''
+				);
 				return track;
 			});
 		}
@@ -39,7 +49,7 @@ export default {
 		}
 	},
 	components: { Grid, Column, Icon, LinkLabel, Button }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -60,7 +70,6 @@ export default {
 			right: 10%;
 			bottom: -5px;
 			content: ' ';
-			
 		}
 
 		&:last-child {
@@ -73,7 +82,8 @@ export default {
 		width: auto;
 	}
 
-	.meta, .action {
+	.meta,
+	.action {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -81,7 +91,7 @@ export default {
 
 	.meta {
 		.icon {
-			opacity: .5;
+			opacity: 0.5;
 			float: left;
 		}
 

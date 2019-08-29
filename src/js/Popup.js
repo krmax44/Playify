@@ -3,6 +3,6 @@ import App from './Popup/Popup.vue';
 import '../style/main.scss';
 
 new Vue({
-  el: '#app',
-  render: h => h(App)
+	el: '#app',
+	render: h => h(App)
 });

@@ -1,6 +1,11 @@
 <template>
 	<div class="player">
-		<Playlist v-if="director.type === 'playlist'" :data="data" @play="play" @transfer="transfer" />
+		<Playlist
+			v-if="director.type === 'playlist'"
+			:data="data"
+			@play="play"
+			@transfer="transfer"
+		/>
 		<Album v-if="director.type === 'album'" :data="data" @play="play" />
 		<Artist v-if="director.type === 'artist'" :data="data" @play="play" />
 		<Track v-if="director.type === 'track'" :data="data" @play="play" />
@@ -24,14 +29,15 @@ export default {
 		}
 	},
 	components: { Playlist, Album, Artist, Track }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .player {
 	display: flex;
 
-	&, & > div {
+	&,
+	& > div {
 		flex: 1;
 		min-height: 100%;
 		width: 100%;

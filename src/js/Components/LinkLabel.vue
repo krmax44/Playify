@@ -1,5 +1,10 @@
 <template>
-	<a :href="href || '#!'" :target="target || ''" @click="click" :class="{ link: true, constant }">
+	<a
+		:href="href || '#!'"
+		:target="target || ''"
+		@click="click"
+		:class="{ link: true, constant }"
+	>
 		<slot />
 	</a>
 </template>
@@ -12,7 +17,7 @@ export default {
 			this.$emit('click', e);
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -23,13 +28,14 @@ a.link {
 	padding: 0;
 	background-color: transparent;
 	text-decoration: none;
-	transition: .3s;
+	transition: 0.3s;
 
 	&.constant {
 		padding: 0 4px;
 	}
 
-	&:hover, &.constant {
+	&:hover,
+	&.constant {
 		background-color: $green;
 		color: $light;
 	}

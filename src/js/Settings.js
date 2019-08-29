@@ -34,21 +34,18 @@ const services = [
 ];
 
 const defaultSettings = {
-	service: services[0],
-	director: {
-		id: '',
-		userId: '',
-		type: ''
-	}
+	service: services[0]
 };
 
-const get = () => new Promise(resolve => {
-	chrome.storage.local.get(defaultSettings, data => resolve(data));
-});
+const get = () =>
+	new Promise(resolve => {
+		chrome.storage.local.get(defaultSettings, data => resolve(data));
+	});
 
-const set = (settings) => new Promise(resolve => {
-	chrome.storage.local.set(settings, () => resolve());
-});
+const set = settings =>
+	new Promise(resolve => {
+		chrome.storage.local.set(settings, () => resolve());
+	});
 
 const subscribe = (fn, exec) => {
 	chrome.storage.onChanged.addListener(fn);

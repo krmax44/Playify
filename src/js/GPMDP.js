@@ -8,11 +8,9 @@ let connectionAttempts = 0;
 let searches = [];
 
 let settings = {};
-Settings
-	.get()
-	.then(s => {
-		settings = s;
-	});
+Settings.get().then(s => {
+	settings = s;
+});
 
 const codeRequired = new CustomEvent('codeRequired');
 const authSuccess = new CustomEvent('authSuccess');
@@ -26,8 +24,7 @@ const send = (namespace, method, args) => {
 			args = [args];
 		}
 		connection.send(JSON.stringify({ namespace, method, arguments: args }));
-	}
-	else {
+	} else {
 		connection.dispatchEvent(connectionError);
 	}
 };
@@ -56,25 +53,24 @@ module.exports = {
 					switch (data.channel) {
 						case 'connect':
 							if (payload === 'CODE_REQUIRED') {
-								connection.dispatchEvent(connectionAttempts === 0 ? codeRequired : authError);
+								connection.dispatchEvent(
+									connectionAttempts === 0 ? codeRequired : authError
+								);
 								connectionAttempts++;
-							}
-							else {
-								Settings
-									.set({
-										service: {
-											id: 'gpmdp',
-											extra: {
-												key: payload
-											}
+							} else {
+								Settings.set({
+									service: {
+										id: 'gpmdp',
+										extra: {
+											key: payload
 										}
-									})
-									.then(() => {
-										settings.service.extra.key = payload;
-										connectionAttempts = 0;
-										send('connect', 'connect', ['Playify', payload]);
-										connection.dispatchEvent(authSuccess);
-									});
+									}
+								}).then(() => {
+									settings.service.extra.key = payload;
+									connectionAttempts = 0;
+									send('connect', 'connect', ['Playify', payload]);
+									connection.dispatchEvent(authSuccess);
+								});
 							}
 							break;
 						case 'search-results':
@@ -88,27 +84,34 @@ module.exports = {
 							break;
 						case 'playState':
 							const playState = payload;
-							const playStateChanged = new CustomEvent('playStateChanged', { detail: { playState: playState ? 'playing' : 'paused' } });
+							const playStateChanged = new CustomEvent('playStateChanged', {
+								detail: { playState: playState ? 'playing' : 'paused' }
+							});
 							connection.dispatchEvent(playStateChanged);
 							break;
 						case 'queue':
 							if (payload.length === 0) {
-								const playStateChanged = new CustomEvent('playStateChanged', { detail: { playState: 'stopped' } });
+								const playStateChanged = new CustomEvent('playStateChanged', {
+									detail: { playState: 'stopped' }
+								});
 								connection.dispatchEvent(playStateChanged);
 							}
 							break;
 						case 'track':
 							const track = payload;
-							const trackChanged = new CustomEvent('trackChanged', { detail: { track } });
+							const trackChanged = new CustomEvent('trackChanged', {
+								detail: { track }
+							});
 							connection.dispatchEvent(trackChanged);
 							break;
 						case 'time':
-							const progressChanged = new CustomEvent('progressChanged', { detail: { progress: payload } });
+							const progressChanged = new CustomEvent('progressChanged', {
+								detail: { progress: payload }
+							});
 							connection.dispatchEvent(progressChanged);
 							break;
 					}
-				}
-				catch (e) {
+				} catch (e) {
 					console.log(e); // handle malformatted JSON, etc.
 				}
 			});

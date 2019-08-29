@@ -9,7 +9,8 @@
 			@focus="inputEvent"
 			@focusout="inputEvent"
 			@keyup="inputEvent"
-			@input="valueEvent">
+			@input="valueEvent"
+		/>
 	</InputWrapper>
 </template>
 
@@ -22,7 +23,7 @@ export default {
 		return {
 			focus: false,
 			text: ''
-		}
+		};
 	},
 	created() {
 		this.text = this.value || '';
@@ -36,16 +37,18 @@ export default {
 			this.$emit('input', e.target.value);
 		},
 		inputEvent(e) {
-			if ((e.type === 'focus' || e.type === 'keyup') && e.target.value.length > 0) {
+			if (
+				(e.type === 'focus' || e.type === 'keyup') &&
+				e.target.value.length > 0
+			) {
 				this.focus = true;
-			}
-			else {
+			} else {
 				this.focus = false;
 			}
 		}
 	},
 	components: { InputWrapper }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -61,14 +64,14 @@ input {
 	color: $light;
 
 	::placeholder {
-		color: rgba(255,255,255,.5);
+		color: rgba(255, 255, 255, 0.5);
 	}
 
 	&.dark {
 		color: $dark;
 
 		::placeholder {
-			color: rgba(0,0,0,.5);
+			color: rgba(0, 0, 0, 0.5);
 		}
 	}
 }

@@ -25,7 +25,7 @@ https://codepen.io/ArronYR/pen/vGXxwQ
 <script>
 export default {
 	props: ['playing']
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -46,7 +46,7 @@ export default {
 .eq span {
 	bottom: 0;
 	position: absolute;
-	background: rgba(255, 255, 255, .2);
+	background: rgba(255, 255, 255, 0.2);
 	animation: eq 2s infinite ease;
 	animation-play-state: paused;
 }

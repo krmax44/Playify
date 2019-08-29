@@ -7,11 +7,21 @@
 
 		<h2>Top Albums</h2>
 		<Grid class="albums">
-			<Column v-for="album in albums" :key="album.name" width="auto" flex="1" class="album">
-				<img :src="album.image" :title="album.name" class="cover">
+			<Column
+				v-for="album in albums"
+				:key="album.name"
+				width="auto"
+				flex="1"
+				class="album"
+			>
+				<img :src="album.image" :title="album.name" class="cover" />
 				<div class="overlay">
-					<Button inline="true" dark="true" @click="playAlbum(album)"><Icon icon="play" /> Play</Button>
-					<Button inline="true" dark="true" @click="openAlbum(album)"><Icon icon="playify-note" /> Open</Button>
+					<Button inline="true" dark="true" @click="playAlbum(album)"
+						><Icon icon="play" /> Play</Button
+					>
+					<Button inline="true" dark="true" @click="openAlbum(album)"
+						><Icon icon="playify-note" /> Open</Button
+					>
 				</div>
 			</Column>
 		</Grid>
@@ -41,20 +51,23 @@ export default {
 		},
 		playAlbum(data) {
 			data.artists = [this.data.name];
-			this.$emit('play', { type: 'album', ...data })
+			this.$emit('play', { type: 'album', ...data });
 		},
 		openAlbum(data) {
-			const parser = document.createElement('a');
-			parser.href = chrome.extension.getURL('index.html');
-			parser.hash = '#' + JSON.stringify({
-				type: 'album',
-				id: data.id
-			});
-			window.open(parser.href, '_blank');
+			const url = new URL(chrome.extension.getURL('index.html'));
+			parser.hash =
+				`#${encodeURIComponent(
+					JSON.stringify({
+						type: 'album',
+						id: data.id
+					})
+				)}`;
+			
+			window.open(url.href, '_blank');
 		}
 	},
 	components: { Grid, Column, Button, Icon, TrackList }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -85,9 +98,9 @@ h1 {
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background-color: transparentize($dark, .5);
+			background-color: transparentize($dark, 0.5);
 			opacity: 0;
-			transition: .3s;
+			transition: 0.3s;
 		}
 
 		.btn-mask {

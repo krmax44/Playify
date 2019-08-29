@@ -13,4 +13,16 @@ import EQ from './Components/EQ.vue';
 import GPMDP from './Components/GPMDP/GPMDP.vue';
 import Transfer from './Components/Transfer/Transfer.vue';
 
-module.exports = { Album, Artist, Playlist, Track, TrackList, Player, Error, Loading, EQ, GPMDP, Transfer };
+module.exports = {
+	Album,
+	Artist,
+	Playlist,
+	Track,
+	TrackList,
+	Player,
+	Error,
+	Loading,
+	EQ,
+	GPMDP,
+	Transfer
+};

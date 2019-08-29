@@ -1,7 +1,7 @@
 <template>
 	<div class="modal" :class="{ open }" @click="close" @keyup.esc="close">
 		<div class="modal-inner">
-			<slot/>
+			<slot />
 		</div>
 	</div>
 </template>
@@ -25,7 +25,7 @@ export default {
 			}
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -46,7 +46,7 @@ export default {
 	z-index: 99;
 	background-color: transparent;
 	pointer-events: none;
-	transition: background-color .5s;
+	transition: background-color 0.5s;
 
 	.modal-inner {
 		max-width: $container-max-width;
@@ -58,7 +58,7 @@ export default {
 		background-color: $light;
 		color: $dark !important;
 		transform: translateY(-100vh);
-		transition: .5s;
+		transition: 0.5s;
 	}
 
 	&.open {

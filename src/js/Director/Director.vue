@@ -3,10 +3,22 @@
 		<Loading v-if="loading" />
 		<Error v-if="error" :director="director" />
 
-		<Player v-if="!loading && !error" :data="data" :director="director" :service="service" @play="play" @transfer="startTransfer" />
+		<Player
+			v-if="!loading && !error"
+			:data="data"
+			:director="director"
+			:service="service"
+			@play="play"
+			@transfer="startTransfer"
+		/>
 
 		<GPMDP v-if="service.id === 'gpmdp'" />
-		<Transfer v-if="director.type === 'playlist'" :data="data" :fetching="fetching" ref="transfer" />
+		<Transfer
+			v-if="director.type === 'playlist'"
+			:data="data"
+			:fetching="fetching"
+			ref="transfer"
+		/>
 	</Page>
 </template>
 
@@ -33,7 +45,7 @@ export default {
 				open: false,
 				failed: false
 			}
-		}
+		};
 	},
 	computed: {
 		alignment() {
@@ -42,41 +54,36 @@ export default {
 	},
 	created() {
 		Settings.subscribe(settings => {
-			Settings
-				.get()
-				.then(settings => {
-					this.service = settings.service;
-				});
-		}, true);
-		
-		Settings
-			.get()
-			.then(settings => {
+			Settings.get().then(settings => {
 				this.service = settings.service;
-				this.director = settings.director;
-
-				const parser = document.createElement('a');
-				parser.href = window.location.href;
-				try {
-					const data = JSON.parse(decodeURIComponent(parser.hash.substr(1)));
-					if (data.id && data.type) {
-						this.director = data;
-					}
-				}
-				catch (e) {
-					console.log('No data in hash.');
-				}
-
-				this.requestData();
 			});
+		}, true);
+
+		Settings.get().then(settings => {
+			this.service = settings.service;
+
+			try {
+				const data = JSON.parse(decodeURIComponent(window.location.hash.substr(1)));
+				if (data.id && data.type && data.originalUrl) {
+					this.director = data;
+				}
+			} catch (e) {
+				console.log('No data in hash.');
+			}
+
+			window.location.hash = '';
+
+			this.requestData();
+		});
 	},
 	methods: {
 		requestData() {
-			const { id, userId, type } = this.director;
-
+			const { id, type } = this.director;
+			console.log(this.director, id, type);
+			setTimeout(() => Settings.get().then(settings => console.info), 10);
 			axios
 				.get(`${backend}/${type}`, {
-					params: { id, userId }
+					params: { id }
 				})
 				.then(response => {
 					this.fetching = false;
@@ -87,11 +94,11 @@ export default {
 					}
 
 					this.data = data;
-					
+
 					if (type === 'playlist') {
 						window.addEventListener('scroll', this.endlessScroll);
 					}
-					
+
 					this.loading = false;
 				})
 				.catch(err => {
@@ -104,8 +111,7 @@ export default {
 			const type = data.type || 'track';
 			if (this.service.id === 'gpmdp') {
 				GPMDP.play(data, type);
-			}
-			else {
+			} else {
 				window.open(LinkBuilder(data, 'track', this.service.url), '_blank');
 			}
 		},
@@ -114,10 +120,10 @@ export default {
 			this.fetching = true;
 			const getAllTracks = () => {
 				this.page++;
-				const { id, userId } = this.director;
+				const { id } = this.director;
 				axios
 					.get(`${backend}/playlist/${this.page}`, {
-						params: { id, userId }
+						params: { id }
 					})
 					.then(response => {
 						if (response.data.tracks) {
@@ -133,14 +139,20 @@ export default {
 			getAllTracks();
 		},
 		endlessScroll() {
-			const bottomReached = document.documentElement.scrollTop + window.innerHeight + 200 >= document.documentElement.offsetHeight;
-			if (bottomReached && this.fetching === false && this.data.tracks.length < this.data.total) {
+			const bottomReached =
+				document.documentElement.scrollTop + window.innerHeight + 200 >=
+				document.documentElement.offsetHeight;
+			if (
+				bottomReached &&
+				this.fetching === false &&
+				this.data.tracks.length < this.data.total
+			) {
 				this.fetching = true;
 				this.page++;
-				const { id, userId } = this.director;
+				const { id } = this.director;
 				axios
 					.get(`${backend}/playlist/${this.page}`, {
-						params: { id, userId }
+						params: { id }
 					})
 					.then(response => {
 						this.data.tracks.push(...response.data.tracks);
@@ -151,7 +163,7 @@ export default {
 		}
 	},
 	components: { ...components, ...directorComponents }
-}
+};
 </script>
 
 <style lang="scss">

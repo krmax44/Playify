@@ -1,9 +1,11 @@
 {
-	"presets": [["env", {
-		"targets": {
-			"chrome": "49",
-			"firefox": "49"
-		}
-	}]],
+	"presets": [
+		[
+			"env",
+			{
+				"targets": "> 2%, not dead"
+			}
+		]
+	],
 	"plugins": ["transform-object-rest-spread"]
 }

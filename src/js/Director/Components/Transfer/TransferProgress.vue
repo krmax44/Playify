@@ -14,8 +14,15 @@
 </template>
 
 <script>
-import Settings from '../../../Settings';
-import { Button, Modal, Grid, Column, TextInput, Selector, Icon } from '../../../Components';
+import {
+	Button,
+	Modal,
+	Grid,
+	Column,
+	TextInput,
+	Selector,
+	Icon
+} from '../../../Components';
 
 export default {
 	props: ['open', 'progress'],
@@ -23,7 +30,7 @@ export default {
 		return {
 			playlist: 'new',
 			newPlaylist: ''
-		}
+		};
 	},
 	methods: {
 		close() {
@@ -31,7 +38,7 @@ export default {
 		}
 	},
 	components: { Button, Modal, Grid, Column, TextInput, Selector, Icon }
-}
+};
 </script>
 
 <style lang="scss" scoped>

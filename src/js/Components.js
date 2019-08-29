@@ -12,4 +12,18 @@ import Page from './Components/Page.vue';
 import TextInput from './Components/TextInput.vue';
 import Selector from './Components/Selector.vue';
 
-module.exports = { Column, Button, Container, Footer, Grid, Icon, Header, LinkLabel, Modal, Notification, Page, TextInput, Selector };
+module.exports = {
+	Column,
+	Button,
+	Container,
+	Footer,
+	Grid,
+	Icon,
+	Header,
+	LinkLabel,
+	Modal,
+	Notification,
+	Page,
+	TextInput,
+	Selector
+};

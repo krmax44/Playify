@@ -6,11 +6,13 @@
 			@focusout="inputEvent"
 			@input="valueEvent"
 			:class="{ dark }"
-			v-model="value">
+			v-model="value"
+		>
 			<option
 				v-for="option in options"
 				:key="option.value"
-				:value="option.value">
+				:value="option.value"
+			>
 				{{ option.text }}
 			</option>
 		</select>
@@ -26,7 +28,7 @@ export default {
 		return {
 			focus: false,
 			value: this.options.find(option => option.selected).value
-		}
+		};
 	},
 	methods: {
 		valueEvent(e) {
@@ -36,14 +38,13 @@ export default {
 		inputEvent(e) {
 			if (e.type === 'focus') {
 				this.focus = true;
-			}
-			else {
+			} else {
 				this.focus = false;
 			}
 		}
 	},
 	components: { InputWrapper }
-}
+};
 </script>
 
 <style lang="scss" scoped>

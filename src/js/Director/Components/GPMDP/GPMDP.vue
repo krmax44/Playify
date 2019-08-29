@@ -1,7 +1,16 @@
 <template>
 	<div>
-		<GPMDPController :track="track" :progress="progress" :playState="playState" />
-		<GPMDPSetup :open="setup.open" :error="setup.error" @save="authenticate" @close="setup.open = false" />
+		<GPMDPController
+			:track="track"
+			:progress="progress"
+			:playState="playState"
+		/>
+		<GPMDPSetup
+			:open="setup.open"
+			:error="setup.error"
+			@save="authenticate"
+			@close="setup.open = false"
+		/>
 
 		<EQ :playing="playState === 'playing'" />
 
@@ -9,7 +18,12 @@
 			<Grid>
 				<Column width="*">Can't connect to GPMDP.</Column>
 				<Column>
-					<Button inline="true" href="https://github.com/krmax44/Playify/blob/master/README.md#GPMDP" target="_blank">Help</Button>
+					<Button
+						inline="true"
+						href="https://github.com/krmax44/Playify/blob/master/README.md#GPMDP"
+						target="_blank"
+						>Help</Button
+					>
 					<Button inline="true" @click="connect">Try again</Button>
 					<Button inline="true" @click="error = false">Close</Button>
 				</Column>
@@ -27,7 +41,7 @@ import GPMDP from '../../../GPMDP';
 
 export default {
 	data() {
-		return  {
+		return {
 			track: null,
 			playState: null,
 			progress: null,
@@ -37,7 +51,7 @@ export default {
 				open: false,
 				error: false
 			}
-		}
+		};
 	},
 	methods: {
 		connect() {
@@ -83,6 +97,14 @@ export default {
 	created() {
 		this.connect();
 	},
-	components: { GPMDPController, GPMDPSetup, Grid, Column, Button, Notification, EQ }
-}
+	components: {
+		GPMDPController,
+		GPMDPSetup,
+		Grid,
+		Column,
+		Button,
+		Notification,
+		EQ
+	}
+};
 </script>

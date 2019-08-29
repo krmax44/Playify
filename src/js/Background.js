@@ -1,53 +1,32 @@
-import Settings from './Settings';
-let settings = {};
-
-Settings.subscribe(() => {
-	Settings
-		.get()
-		.then(s => {
-			settings = s;
-		});
-}, true);
-
-chrome.webRequest.onBeforeRequest.addListener(details => {
-	if (details.url.startsWith('https://open.spotify.com/')) {
-		const originalUrl = details.url;
-
-		const parser = document.createElement('a');
-		parser.href = originalUrl;
-		if (parser.hash == '#no-playify') {
-			return;
-		}
-
-		const parts = parser.pathname.split('/');
-		
-		let type = parts[1];
-		if (['album', 'artist', 'track', 'user'].indexOf(type) === -1) {
-			return;
-		}
-
-		let id = parts[2];
-		let userId = null;
-
-		const playlistRegex = /\/user\/[^\/\\]+\/playlist\/[a-zA-Z0-9]+/ig;
-		if (type === 'user') {
-			if (!playlistRegex.test(parser.pathname)) {
+chrome.webRequest.onBeforeRequest.addListener(
+	details => {
+		if (details.url.startsWith('https://open.spotify.com/')) {
+			const originalUrl = details.url;
+			const url = new URL(originalUrl);
+			if (url.hash === '#no-playify') {
 				return;
 			}
-			type = 'playlist';
-			id = parts[4];
-			userId = parts[2];
-		}
 
-		if (type && id) {
-			Settings.set({ director: { id, userId, type, originalUrl } });
-			return {
-				redirectUrl: chrome.extension.getURL('index.html')
-			};
-		}
+			const regex = /^\/(user\/[^/\\]*\/)?(playlist|artist|track|album)\/([a-zA-Z0-9]+)$/; // see https://regex101.com/r/A01hDI/1
+			const results = url.pathname.match(regex);
 
-	}
-}, {
-	urls: ['*://*.spotify.com/*'],
-	types: ['main_frame']
-}, ['blocking']);
+			if (results) {
+				const [type, id] = results.slice(2);
+
+				const redirect = new URL(chrome.extension.getURL('index.html'));
+				redirect.hash = `#${encodeURIComponent(
+					JSON.stringify({ type, id, originalUrl })
+				)}`;
+
+				return {
+					redirectUrl: redirect.href
+				};
+			}
+		}
+	},
+	{
+		urls: ['*://*.spotify.com/*'],
+		types: ['main_frame']
+	},
+	['blocking']
+);
