@@ -1,13 +1,9 @@
-const webpack = require('webpack');
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const fs = require('fs');
-const node_modules = fs.readdirSync('node_modules').filter(x => x !== '.bin');
 
 module.exports = {
 	entry: {
@@ -54,7 +50,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new CleanWebpackPlugin(['dist/*.*']),
+		new CleanWebpackPlugin(),
 		new VueLoaderPlugin(),
 		new HtmlWebpackPlugin({
 			filename: 'popup.html',

@@ -21,7 +21,7 @@
 
 <script>
 import Settings from '../Settings';
-import components from '../Components';
+import * as components from '../Components';
 import ServiceSelector from './Components/ServiceSelector.vue';
 
 export default {

@@ -13,4 +13,4 @@ const builder = (data, type, url) => {
 	return url ? url.replace('%q', encodeURIComponent(search)) : search;
 };
 
-module.exports = builder;
+export default builder;

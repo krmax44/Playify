@@ -13,7 +13,7 @@ const send = data => {
 	}
 };
 
-module.exports = {
+export default {
 	connect() {
 		if (connection.readyState > 1) {
 			connection = new WebSocket('ws://localhost:5673');

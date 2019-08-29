@@ -24,8 +24,8 @@
 
 <script>
 import Settings from '../Settings';
-import components from '../Components';
-import directorComponents from './Components';
+import * as components from '../Components';
+import * as directorComponents from './Components';
 import LinkBuilder from '../LinkBuilder';
 import GPMDP from '../GPMDP';
 import axios from 'axios';

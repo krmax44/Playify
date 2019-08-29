@@ -1,11 +1,3 @@
 {
-	"presets": [
-		[
-			"env",
-			{
-				"targets": "> 2%, not dead"
-			}
-		]
-	],
-	"plugins": ["transform-object-rest-spread"]
+	"presets": ["@babel/preset-env"]
 }

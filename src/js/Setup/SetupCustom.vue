@@ -55,7 +55,7 @@
 
 <script>
 import Settings from '../Settings';
-import components from '../Components';
+import * as components from '../Components';
 
 export default {
 	data() {

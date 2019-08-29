@@ -54,4 +54,4 @@ const subscribe = (fn, exec) => {
 	}
 };
 
-module.exports = { get, set, subscribe, defaultSettings, services };
+export default { get, set, subscribe, defaultSettings, services };
